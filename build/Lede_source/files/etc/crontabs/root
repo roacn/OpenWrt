@@ -1,0 +1,6 @@
+0 1 * * 1 rm /tmp/luci-indexcache > /dev/null 2>&1
+33 6 * * 6 sync && echo 3 > /proc/sys/vm/drop_caches #rebootschedule
+33 3 * * * sysfree.sh #rebootschedule
+51 6 * * 1 sleep 5 && touch /etc/banner && reboot #rebootschedule
+0 5 * * 0 lua /usr/share/passwall/rule_update.lua log > /dev/null 2>&1 &
+0 6 * * * /usr/share/adbyby/adblock.sh > /tmp/adupdate.log 2>&1

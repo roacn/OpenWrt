@@ -1,0 +1,4 @@
+0 1 * * 1 rm /tmp/luci-indexcache > /dev/null 2>&1
+00 21 * * 1-5 poweroff
+00 22 * * 6-7 poweroff
+1 00 * * * poweroff
