@@ -632,16 +632,16 @@ if [[ ${REGULAR_UPDATE} == "true" ]]; then
 	if [[ ${PVE_LXC} == "true" ]]; then	
 		echo
 		TIME y "LXC固件：开启"
-		echo " ───────────────────────────── LXC固件自动更新 ──────────────────────────────"
 		echo
-		echo " PVE运行："
+		echo " LXC固件自动更新："
+		echo
+		echo " 1、PVE运行："
 		TIME g "pct pull xxx /sbin/openwrt.lxc /sbin/openwrt && chmod +x /usr/sbin/openwrt"
 		echo " 注意：将xxx改为个人OpenWrt容器的ID，如100"
 		echo
-		echo " PVE运行："
+		echo " 2、PVE运行："
 		TIME g "openwrt"
 		echo
-		echo " ───────────────────────────────────────────────────────────────────────────"
 	else
 		TIME g "修改IP、DNS、网关或者在线更新，请输入命令：openwrt"
 	fi
