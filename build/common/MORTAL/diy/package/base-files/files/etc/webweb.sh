@@ -4,7 +4,13 @@
 
 cp -Rf /etc/config/network /mnt/network
 
-sed -i '/mp\/luci-/d' /etc/crontabs/root && echo "0 1 * * 1 rm /tmp/luci-*cache > /dev/null 2>&1" >> /etc/crontabs/root
+if [[ -f /etc/crontabs/root ]]; then
+  sed -i '/mp\/luci-/d' /etc/crontabs/root && echo "0 1 * * 1 rm -rf /tmp/luci-*cache > /dev/null 2>&1" >> /etc/crontabs/root
+else
+  mkdir -p /etc/crontabs
+  echo "0 1 * * 1 rm -rf /tmp/luci-*cache > /dev/null 2>&1" > /etc/crontabs/root
+  chmod -R 755 /etc/crontabs
+fi
 
 if [[ `grep -c "x86_64" /etc/openwrt_release` -eq '0' ]]; then
   source /etc/openwrt_release
@@ -25,8 +31,10 @@ if [[ -f /etc/init.d/ddnsto ]]; then
  /etc/init.d/ddnsto enable
 fi
 
-uci set argon.@global[0].bing_background=0
-uci commit argon
+if [[ -d /usr/lib/lua/luci/view/themes/argon ]]; then
+  uci set argon.@global[0].bing_background=0
+  uci commit argon
+fi
 
 rm -rf /etc/networkip
 rm -rf /etc/webweb.sh
