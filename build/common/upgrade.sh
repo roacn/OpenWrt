@@ -155,17 +155,22 @@ Diy_Part3() {
 		else
 			if [[ `ls ${Firmware_Path} | grep -c "ext4"` -ge '1' ]]; then
 				mv -f ${Firmware_Path}/*ext4* ${Diuqu_gj}
+				echo "move ${Firmware_Path}/*ext4* to ${Diuqu_gj}"
 			fi
 			if [[ `ls ${Firmware_Path} | grep -c "rootfs"` -ge '1' ]]; then
 				mv -f ${Firmware_Path}/*rootfs* ${Diuqu_gj}
+				echo "move ${Firmware_Path}/*rootfs* to ${Diuqu_gj}"
 			fi
 			if [[ `ls ${Firmware_Path} | grep -c "${Firmware_sfx}"` -ge '1' ]]; then
 				mv -f ${Firmware_Path}/*${Firmware_sfx}* ${Zhuan_Yi}
+				echo "move ${Firmware_Path}/*${Firmware_sfx}* to ${Zhuan_Yi}"
 				if [[ `ls ${Zhuan_Yi} | grep -c "efi"` -eq '1' ]]; then
 					mv -f ${Zhuan_Yi}/*efi* ${Firmware_Path}/${UEFI_Firmware}
+					echo "move ${Zhuan_Yi}/*efi* to ${Firmware_Path}/${UEFI_Firmware}"
 				fi
 				if [[ `ls ${Zhuan_Yi} | grep -c "squashfs"` -eq '1' ]]; then
 					mv -f ${Zhuan_Yi}/*squashfs* ${Firmware_Path}/${Legacy_Firmware}
+					echo "move ${Zhuan_Yi}/*squashfs* to ${Firmware_Path}/${Legacy_Firmware}"
 				fi
 			fi
 		fi
@@ -174,28 +179,35 @@ Diy_Part3() {
 		echo "${TARGET_BOARD},${Rename},${TARGET_PROFILE}" > ${Home}/4444
 		if [[ -n ${Rename} ]]; then
 			mv -f ${Firmware_Path}/*${Rename}* ${Zhuan_Yi}
+			echo "move ${Firmware_Path}/*${Rename}* to ${Zhuan_Yi}"
 			rm -f ${Firmware_Path}/${Up_Firmware}
-			[[ `ls ${Zhuan_Yi} | grep -c "sysupgrade.bin"` == '1' ]] && mv -f ${Zhuan_Yi}/*sysupgrade.bin ${Firmware_Path}/${Up_Firmware}
+			[[ `ls ${Zhuan_Yi} | grep -c "sysupgrade.bin"` == '1' ]] && mv -f ${Zhuan_Yi}/*sysupgrade.bin ${Firmware_Path}/${Up_Firmware} && echo "move ${Zhuan_Yi}/*sysupgrade.bin to ${Firmware_Path}/${Up_Firmware}"
 		else
 			mv -f ${Firmware_Path}/*${TARGET_PROFILE}* ${Zhuan_Yi}
+			echo "move ${Firmware_Path}/*${TARGET_PROFILE}* to ${Zhuan_Yi}"
 			rm -f ${Firmware_Path}/${Up_Firmware}
-			[[ `ls ${Zhuan_Yi} | grep -c "sysupgrade.bin"` == '1' ]] && mv -f ${Zhuan_Yi}/*sysupgrade.bin ${Firmware_Path}/${Up_Firmware}
+			[[ `ls ${Zhuan_Yi} | grep -c "sysupgrade.bin"` == '1' ]] && mv -f ${Zhuan_Yi}/*sysupgrade.bin ${Firmware_Path}/${Up_Firmware} && echo "move ${Zhuan_Yi}/*sysupgrade.bin to ${Firmware_Path}/${Up_Firmware}"
 		fi	
 	;;
 	rockchip | bcm27xx | mxs | sunxi | zynq)
 		if [[ `ls ${Firmware_Path} | grep -c "ext4"` -ge '1' ]]; then
 			mv -f ${Firmware_Path}/*ext4* ${Diuqu_gj}
+			echo "move ${Firmware_Path}/*ext4* to ${Diuqu_gj}"
 		fi
 		if [[ `ls ${Firmware_Path} | grep -c "rootfs"` -ge '1' ]]; then
 			mv -f ${Firmware_Path}/*rootfs* ${Diuqu_gj}
+			echo "move ${Firmware_Path}/*rootfs* to ${Diuqu_gj}"
 		fi
 		if [[ `ls ${Firmware_Path} | grep -c "${Firmware_sfx}"` -ge '1' ]]; then
 			mv -f ${Firmware_Path}/*${Firmware_sfx}* ${Zhuan_Yi}
+			echo "move ${Firmware_Path}/*${Firmware_sfx}* to ${Zhuan_Yi}"
 			if [[ `ls ${Zhuan_Yi} | grep -c "efi"` -eq '1' ]]; then
 				mv -f ${Zhuan_Yi}/*efi* ${Firmware_Path}/${UEFI_Firmware}
+				echo "move ${Zhuan_Yi}/*efi* to ${Firmware_Path}/${UEFI_Firmware}"
 			fi
 			if [[ `ls ${Zhuan_Yi} | grep -c "squashfs"` -eq '1' ]]; then
 				mv -f ${Zhuan_Yi}/*squashfs* ${Firmware_Path}/${Legacy_Firmware}
+				echo "move ${Zhuan_Yi}/*squashfs* to ${Firmware_Path}/${Legacy_Firmware}"
 			fi
 		fi
 	;;
@@ -204,17 +216,22 @@ Diy_Part3() {
 		cortexa53 | cortexa72)
 			if [[ `ls ${Firmware_Path} | grep -c "ext4"` -ge '1' ]]; then
 				mv -f ${Firmware_Path}/*ext4* ${Diuqu_gj}
+				echo "move ${Firmware_Path}/*ext4* to ${Diuqu_gj}"
 			fi
 			if [[ `ls ${Firmware_Path} | grep -c "rootfs"` -ge '1' ]]; then
 				mv -f ${Firmware_Path}/*rootfs* ${Diuqu_gj}
+				echo "move ${Firmware_Path}/*rootfs* to ${Diuqu_gj}"
 			fi
 			if [[ `ls ${Firmware_Path} | grep -c "${Firmware_sfx}"` -ge '1' ]]; then
 				mv -f ${Firmware_Path}/*${Firmware_sfx}* ${Zhuan_Yi}
+				echo "move ${Firmware_Path}/*${Firmware_sfx}* to ${Zhuan_Yi}"
 				if [[ `ls ${Zhuan_Yi} | grep -c "efi"` -eq '1' ]]; then
-					mv -f ${Zhuan_Yi}/*efi* "${Firmware_Path}/${UEFI_Firmware}"
+					mv -f ${Zhuan_Yi}/*efi* ${Firmware_Path}/${UEFI_Firmware}
+					echo "move ${Zhuan_Yi}/*efi* to ${Firmware_Path}/${UEFI_Firmware}"
 				fi
 				if [[ `ls ${Zhuan_Yi} | grep -c "squashfs"` -eq '1' ]]; then
 					mv -f ${Zhuan_Yi}/*squashfs* ${Firmware_Path}/${Legacy_Firmware}
+					echo "move ${Zhuan_Yi}/*squashfs* to ${Firmware_Path}/${Legacy_Firmware}"
 				fi
 			fi
 		;;
@@ -223,34 +240,40 @@ Diy_Part3() {
 	bcm53xx)
 		if [[ -n ${Rename} ]]; then
 			mv -f ${Firmware_Path}/*${Rename}* ${Zhuan_Yi}
+			echo "move ${Firmware_Path}/*${Rename}* to ${Zhuan_Yi}"
 			rm -f ${Firmware_Path}/${Up_Firmware}
-			[[ `ls ${Zhuan_Yi} | grep -c ".trx"` == '1' ]] && mv -f ${Zhuan_Yi}/*.trx ${Firmware_Path}/${Up_Firmware}
+			[[ `ls ${Zhuan_Yi} | grep -c ".trx"` == '1' ]] && mv -f ${Zhuan_Yi}/*.trx ${Firmware_Path}/${Up_Firmware} && echo "move ${Zhuan_Yi}/*.trx to ${Firmware_Path}/${Up_Firmware}"
 		else
 			mv -f ${Firmware_Path}/*${TARGET_PROFILE}* ${Zhuan_Yi}
+			echo "move ${Firmware_Path}/*${TARGET_PROFILE}* to ${Zhuan_Yi}"
 			rm -f ${Firmware_Path}/${Up_Firmware}
-			[[ `ls ${Zhuan_Yi} | grep -c ".trx"` == '1' ]] && mv -f ${Zhuan_Yi}/*.trx ${Firmware_Path}/${Up_Firmware}
+			[[ `ls ${Zhuan_Yi} | grep -c ".trx"` == '1' ]] && mv -f ${Zhuan_Yi}/*.trx ${Firmware_Path}/${Up_Firmware} && echo "move ${Zhuan_Yi}/*.trx to ${Firmware_Path}/${Up_Firmware}"
 		fi
 	;;
 	octeon | oxnas | pistachio)
 		if [[ -n ${Rename} ]]; then
 			mv -f ${Firmware_Path}/*${Rename}* ${Zhuan_Yi}
+			echo "move ${Firmware_Path}/*${Rename}* to ${Zhuan_Yi}"
 			rm -f ${Firmware_Path}/${Up_Firmware}
-			[[ `ls ${Zhuan_Yi} | grep -c ".tar"` == '1' ]] && mv -f ${Zhuan_Yi}/*.tar ${Firmware_Path}/${Up_Firmware}
+			[[ `ls ${Zhuan_Yi} | grep -c ".tar"` == '1' ]] && mv -f ${Zhuan_Yi}/*.tar ${Firmware_Path}/${Up_Firmware} && echo "move ${Zhuan_Yi}/*.tar to ${Firmware_Path}/${Up_Firmware}"
 		else
 			mv -f ${Firmware_Path}/*${TARGET_PROFILE}* ${Zhuan_Yi}
+			echo "move ${Firmware_Path}/*${TARGET_PROFILE}* to ${Zhuan_Yi}"
 			rm -f ${Firmware_Path}/${Up_Firmware}
-			[[ `ls ${Zhuan_Yi} | grep -c ".tar"` == '1' ]] && mv -f ${Zhuan_Yi}/*.tar ${Firmware_Path}/${Up_Firmware}
+			[[ `ls ${Zhuan_Yi} | grep -c ".tar"` == '1' ]] && mv -f ${Zhuan_Yi}/*.tar ${Firmware_Path}/${Up_Firmware} && echo "move ${Zhuan_Yi}/*.tar to ${Firmware_Path}/${Up_Firmware}"
 		fi
 	;;
 	*)
 		if [[ -n ${Rename} ]]; then
 			mv -f ${Firmware_Path}/*${Rename}* ${Zhuan_Yi}
+			echo "move ${Firmware_Path}/*${Rename}* to ${Zhuan_Yi}"
 			rm -f ${Firmware_Path}/${Up_Firmware}
-			[[ `ls ${Zhuan_Yi} | grep -c "sysupgrade.bin"` == '1' ]] && mv -f ${Zhuan_Yi}/*sysupgrade.bin ${Firmware_Path}/${Up_Firmware}
+			[[ `ls ${Zhuan_Yi} | grep -c "sysupgrade.bin"` == '1' ]] && mv -f ${Zhuan_Yi}/*sysupgrade.bin ${Firmware_Path}/${Up_Firmware} && echo "move ${Zhuan_Yi}/*sysupgrade.bin to ${Firmware_Path}/${Up_Firmware}"
 		else
 			mv -f ${Firmware_Path}/*${TARGET_PROFILE}* ${Zhuan_Yi}
+			echo "move ${Firmware_Path}/*${TARGET_PROFILE}* to ${Zhuan_Yi}"
 			rm -f ${Firmware_Path}/${Up_Firmware}
-			[[ `ls ${Zhuan_Yi} | grep -c "sysupgrade.bin"` == '1' ]] && mv -f ${Zhuan_Yi}/*sysupgrade.bin ${Firmware_Path}/${Up_Firmware}
+			[[ `ls ${Zhuan_Yi} | grep -c "sysupgrade.bin"` == '1' ]] && mv -f ${Zhuan_Yi}/*sysupgrade.bin ${Firmware_Path}/${Up_Firmware} && echo "move ${Zhuan_Yi}/*sysupgrade.bin to ${Firmware_Path}/${Up_Firmware}"
 		fi
 	;;
 	esac
@@ -289,12 +312,14 @@ Diy_Part3() {
 			SHA256=$(sha256sum ${Legacy_Firmware} | cut -c1-3)
 			SHA5BIT="${MD5}${SHA256}"
 			cp ${Legacy_Firmware} ${Home}/bin/Firmware/${AutoBuild_Firmware}-Legacy-${SHA5BIT}.${Firmware_sfx}
+			echo "copy ${Legacy_Firmware} to ${Home}/bin/Firmware/${AutoBuild_Firmware}-Legacy-${SHA5BIT}.${Firmware_sfx}"
 		}
 		[[ -f ${UEFI_Firmware} ]] && {
 			MD5=$(md5sum ${UEFI_Firmware} | cut -c1-3)
 			SHA256=$(sha256sum ${UEFI_Firmware} | cut -c1-3)
 			SHA5BIT="${MD5}${SHA256}"
 			cp ${UEFI_Firmware} ${Home}/bin/Firmware/${AutoBuild_Firmware}-UEFI-${SHA5BIT}.${Firmware_sfx}
+			echo "copy ${UEFI_Firmware} to ${Home}/bin/Firmware/${AutoBuild_Firmware}-UEFI-${SHA5BIT}.${Firmware_sfx}"
 		}
 	;;
 	mvebu)
@@ -305,12 +330,14 @@ Diy_Part3() {
 				SHA256=$(sha256sum ${Legacy_Firmware} | cut -c1-3)
 				SHA5BIT="${MD5}${SHA256}"
 				cp ${Legacy_Firmware} ${Home}/bin/Firmware/${AutoBuild_Firmware}-Legacy-${SHA5BIT}.${Firmware_sfx}
+				echo "copy ${Legacy_Firmware} to ${Home}/bin/Firmware/${AutoBuild_Firmware}-Legacy-${SHA5BIT}.${Firmware_sfx}"
 			}
 			[[ -f ${UEFI_Firmware} ]] && {
 				MD5=$(md5sum ${UEFI_Firmware} | cut -c1-3)
 				SHA256=$(sha256sum ${UEFI_Firmware} | cut -c1-3)
 				SHA5BIT="${MD5}${SHA256}"
 				cp ${UEFI_Firmware} ${Home}/bin/Firmware/${AutoBuild_Firmware}-UEFI-${SHA5BIT}.${Firmware_sfx}
+				echo "copy ${UEFI_Firmware} to ${Home}/bin/Firmware/${AutoBuild_Firmware}-UEFI-${SHA5BIT}.${Firmware_sfx}"
 			}
 		;;
 		esac
@@ -321,6 +348,7 @@ Diy_Part3() {
 			SHA256=$(sha256sum ${Up_Firmware} | cut -c1-3)
 			SHA5BIT="${MD5}${SHA256}"
 			cp ${Up_Firmware} ${Home}/bin/Firmware/${AutoBuild_Firmware}-Sysupg-${SHA5BIT}.${Firmware_sfx}
+			echo "copy ${Up_Firmware} to ${Home}/bin/Firmware/${AutoBuild_Firmware}-Sysupg-${SHA5BIT}.${Firmware_sfx}"
 		} || {
 			echo "Firmware is not detected !"
 		}
