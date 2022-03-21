@@ -70,6 +70,7 @@ Diy_lienol() {
 find . -name 'luci-app-netdata' -o -name 'netdata' -o -name 'luci-app-ttyd' | xargs -i rm -rf {}
 find . -name 'ddns-scripts_aliyun' -o -name 'ddns-scripts_dnspod' -o -name 'luci-app-wol' | xargs -i rm -rf {}
 find . -name 'UnblockNeteaseMusic-Go' -o -name 'UnblockNeteaseMusic' -o -name 'luci-app-unblockmusic' | xargs -i rm -rf {}
+find . -name 'luci-app-passwall' -o -name 'luci-app-passwall2' -o -name 'luci-app-ssr-plus' | xargs -i rm -rf {}
 
 DISTRIB="$(egrep -o "DISTRIB_DESCRIPTION='.* '" $ZZZ |sed -r "s/DISTRIB_DESCRIPTION='(.*) '/\1/")"
 [[ -n "${DISTRIB}" ]] && sed -i "s/${DISTRIB}/OpenWrt/g" $ZZZ
@@ -80,7 +81,9 @@ git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwa
 git clone https://github.com/fw876/helloworld package/luci-app-ssr-plus
 rm -rf package/luci-app-ssr-plus/{dns2socks,microsocks,ipt2socks,pdnsd-alt}
 
-sed -i 's/DEFAULT_PACKAGES +=/DEFAULT_PACKAGES += luci-app-passwall/g' target/linux/x86/Makefile
+
+sed  -i  's/ luci-app-passwall//g' target/linux/*/Makefile
+sed -i 's/DEFAULT_PACKAGES +=/DEFAULT_PACKAGES += luci-app-passwall/g' target/linux/*/Makefile
 sed -i "/exit 0/i\chmod +x /etc/webweb.sh && source /etc/webweb.sh" $ZZZ
 }
 
@@ -126,7 +129,7 @@ fi
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
 	[[ -f "${PATH1}/AutoUpdate.sh" ]] && cp -rf "${PATH1}"/AutoUpdate.sh package/base-files/files/bin/AutoUpdate.sh
 	[[ -f "${PATH1}/replace.sh" ]] && cp -rf "${PATH1}"/replace.sh package/base-files/files/bin/replace.sh
-elif [[ ${PVE_CT} != "true" ]]; then
+elif [[ ${PVE_LXC} != "true" ]]; then
 	svn co https://github.com/roacn/openwrt-packages/trunk/luci-app-autoupdate feeds/luci/applications/luci-app-autoupdate
 fi
 [[ -f "${PATH1}/openwrt.sh" ]] && cp -rf "${PATH1}"/openwrt.sh package/base-files/files/sbin/openwrt && chmod +x package/base-files/files/sbin/openwrt
@@ -353,15 +356,21 @@ fi
 if [[ `grep -c "CONFIG_TARGET_x86=y" ${Home}/.config` -eq '1' ]] || [[ `grep -c "CONFIG_TARGET_rockchip=y" ${Home}/.config` -eq '1' ]] || [[ `grep -c "CONFIG_TARGET_bcm27xx=y" ${Home}/.config` -eq '1' ]]; then
 	sed -i '/IMAGES_GZIP/d' "${Home}/.config"
 	echo -e "\nCONFIG_TARGET_IMAGES_GZIP=y" >> "${Home}/.config"
+	sed -i '/CONFIG_PACKAGE_openssh-sftp-server/d' "${Home}/.config"
+	echo -e "\nCONFIG_PACKAGE_openssh-sftp-server=y" >> "${Home}/.config"
 fi
 if [[ `grep -c "CONFIG_TARGET_mxs=y" ${Home}/.config` -eq '1' ]] || [[ `grep -c "CONFIG_TARGET_sunxi=y" ${Home}/.config` -eq '1' ]] || [[ `grep -c "CONFIG_TARGET_zynq=y" ${Home}/.config` -eq '1' ]]; then
 	sed -i '/IMAGES_GZIP/d' "${Home}/.config"
 	echo -e "\nCONFIG_TARGET_IMAGES_GZIP=y" >> "${Home}/.config"
+	sed -i '/CONFIG_PACKAGE_openssh-sftp-server/d' "${Home}/.config"
+	echo -e "\nCONFIG_PACKAGE_openssh-sftp-server=y" >> "${Home}/.config"
 fi
 if [[ `grep -c "CONFIG_TARGET_armvirt=y" ${Home}/.config` -eq '1' ]]; then
 	sed -i 's/CONFIG_PACKAGE_luci-app-autoupdate=y/# CONFIG_PACKAGE_luci-app-autoupdate is not set/g' ${Home}/.config
 	export REGULAR_UPDATE="false"
 	echo "REGULAR_UPDATE=false" >> $GITHUB_ENV
+	sed -i '/CONFIG_PACKAGE_openssh-sftp-server/d' "${Home}/.config"
+	echo -e "\nCONFIG_PACKAGE_openssh-sftp-server=y" >> "${Home}/.config"
 fi
 if [[ `grep -c "CONFIG_TARGET_ROOTFS_EXT4FS=y" ${Home}/.config` -eq '1' ]]; then
 	if [[ `grep -c "CONFIG_TARGET_ROOTFS_PARTSIZE" ${Home}/.config` -eq '0' ]]; then
@@ -444,8 +453,7 @@ if [[ `grep -c "CONFIG_PACKAGE_luci-app-adguardhome=y" ${Home}/.config` -eq '1' 
 		Arch="i386"
 	elif [[ `grep -c "CONFIG_ARCH=\"aarch64\"" ${Home}/.config` -eq '1' ]]; then
 		Arch="arm64"
-	fi
-	if [[ `grep -c "CONFIG_ARCH=\"arm\"" ${Home}/.config` -eq '1' ]]; then
+	elif [[ `grep -c "CONFIG_ARCH=\"arm\"" ${Home}/.config` -eq '1' ]]; then
 		if [[ `grep -c "CONFIG_arm_v7=y" ${Home}/.config` -eq '1' ]]; then
 			Arch="armv7"
 		fi	
@@ -645,14 +653,14 @@ if [ -n "$(ls -A "${Home}/EXT4" 2>/dev/null)" ]; then
 	echo
 	chmod -R +x ${Home}/EXT4
 	source ${Home}/EXT4
-	rm -rf EXT4
+	rm -rf ${Home}/EXT4
 fi
 if [ -n "$(ls -A "${Home}/Chajianlibiao" 2>/dev/null)" ]; then
 	echo
 	echo
 	chmod -R +x ${Home}/CHONGTU
 	source ${Home}/CHONGTU
-	rm -rf {CHONGTU,Chajianlibiao}
+	rm -rf ${Home}/{CHONGTU,Chajianlibiao}
 	echo
 	echo
 fi
@@ -660,7 +668,7 @@ if [ -n "$(ls -A "${Home}/Plug-in" 2>/dev/null)" ]; then
 	TIME r "	      已选插件列表"
 	chmod -R +x ${Home}/Plug-in
 	source ${Home}/Plug-in
-	rm -rf {Plug-in,Plug-2}
+	rm -rf ${Home}/{Plug-in,Plug-2}
 	echo
 fi
 }
