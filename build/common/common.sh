@@ -617,7 +617,7 @@ if [[ ${REGULAR_UPDATE} == "true" ]]; then
 	echo
 	TIME r "自动更新信息"
 	TIME z "插件版本: ${AutoUpdate_Version}"
-	if [[ ${TARGET_PROFILE} == "x86-64" ]] || [[ ${TARGET_PROFILE} == "x86-64-lxc" ]]; then
+	if [[ ${TARGET_PROFILE} == "x86-64" ]]; then
 		TIME y "传统固件: ${Legacy_Firmware}"
 		TIME y "UEFI固件: ${UEFI_Firmware}"
 		TIME y "固件后缀: ${Firmware_sfx}"
@@ -629,7 +629,22 @@ if [[ ${REGULAR_UPDATE} == "true" ]]; then
 	TIME y "云端路径: ${Github_UP_RELEASE}"
 	TIME g "《编译成功后，会自动把固件发布到指定地址，然后才会生成云端路径》"
 	TIME g "《普通的那个发布固件跟云端的发布路径是两码事，如果你不需要普通发布的可以不用打开发布功能》"
-	TIME g "修改IP、DNS、网关或者在线更新，请输入命令：openwrt"
+	if [[ ${PVE_LXC} == "true" ]]; then	
+		echo
+		TIME y "LXC固件：开启"
+		echo " ───────────────────────────── LXC固件自动更新 ──────────────────────────────"
+		echo
+		echo " PVE运行："
+		TIME g "pct pull xxx /sbin/openwrt.lxc /sbin/openwrt && chmod +x /usr/sbin/openwrt"
+		echo " 注意：将xxx改为个人OpenWrt容器的ID，如100"
+		echo
+		echo " PVE运行："
+		TIME g "openwrt"
+		echo
+		echo " ────────────────────────────────────────────────────────────────────────────"
+	else
+		TIME g "修改IP、DNS、网关或者在线更新，请输入命令：openwrt"
+	fi
 	echo
 else
 	echo
