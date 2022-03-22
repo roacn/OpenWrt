@@ -633,7 +633,7 @@ if [[ ${REGULAR_UPDATE} == "true" ]]; then
 		echo
 		TIME y "LXC固件：开启"
 		echo
-		echo " LXC固件自动更新："
+		TIME r "LXC固件自动更新："
 		echo " 1、PVE运行："
 		TIME g "pct pull xxx /sbin/openwrt.lxc /sbin/openwrt && chmod +x /usr/sbin/openwrt"
 		echo " 注意：将xxx改为个人OpenWrt容器的ID，如100"
