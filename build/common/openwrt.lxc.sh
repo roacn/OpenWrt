@@ -17,6 +17,7 @@ export Creatlxc_Path="/tmp/openwrt/creatlxc"
 export Backup_Path="/tmp/openwrt/backup"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+export Version="2022.03.22"
 # pause
 pause(){
     read -n 1 -p " Press any key to continue... " input
@@ -598,7 +599,7 @@ menu(){
     #[[ ! -d ${Openwrt_Path} ]] && mkdir -p ${Openwrt_Path}
     echo
     cat <<-EOF
-`TIME y "       OpenWrt自动安装升级脚本22.03"`
+`TIME y "     OpenWrt自动安装升级脚本  v${Version}"`
 ┌──────────────────────────────────────────┐
      安    1. 更新CT模板 + 创建LXC容器
      装    2. 更新CT模板
