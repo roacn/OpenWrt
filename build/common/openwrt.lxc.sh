@@ -461,7 +461,7 @@ start_openwrt(){
     t=0
     while :; do
         let t+=1
-        pct exec ${id} -- ping -c 2 www.qq.com
+        pct exec ${id} -- ping -c 2 www.baidu.com
         if [[ $? -ne 0 ]] && [[ ${t} -le 5 ]]; then                
             echo " OpenWrt启动中... 10s后进行第${t}次尝试！"
             sleep 10
