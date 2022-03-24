@@ -635,7 +635,7 @@ if [[ ${REGULAR_UPDATE} == "true" ]]; then
 		echo
 		TIME r "LXC固件自动更新："
 		echo " 1、PVE运行："
-		TIME g "pct pull xxx /sbin/openwrt.lxc /sbin/openwrt && chmod +x /usr/sbin/openwrt"
+		TIME g "pct pull xxx /sbin/openwrt.lxc /usr/sbin/openwrt && chmod +x /usr/sbin/openwrt"
 		echo " 注意：将xxx改为个人OpenWrt容器的ID，如100"
 		echo " 2、PVE运行："
 		TIME g "openwrt"
