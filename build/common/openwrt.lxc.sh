@@ -582,7 +582,7 @@ linux_uname(){
         echo " ────────────────────────────────────────────────────────────────────────────"
         echo
         echo " PVE运行："
-        TIME g "pct pull xxx /sbin/openwrt.lxc /sbin/openwrt && chmod +x /usr/sbin/openwrt"
+        TIME g "pct pull xxx /sbin/openwrt.lxc /usr/sbin/openwrt && chmod +x /usr/sbin/openwrt"
         echo " 注意：将xxx改为个人OpenWrt容器的ID，如100"
         echo
         echo " PVE运行："
