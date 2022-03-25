@@ -1,7 +1,8 @@
-存放制作好的补丁文件
-存放补丁有两种方法
-1、在这里按 Add file 然后选 Create new file 然后补丁名字，下面大方框粘贴补丁内容，然后最下面绿色按钮保存
-2、在这里按 Create new file 然后选择 Upload files 然后把在你电脑上的补丁文件拖进来，等文件传输完毕，然后最下绿色按钮保存就可以了
 
-- [ ] 《[patch补丁制作](https://github.com/roacn/shuoming/blob/master/buding.md)》
+
+- [x] autocore.patch——修改CPU信息显示
+- [x] ethinfo.patch——修复ethtool: bad command line argument(s) For more information run ethtool -h错误
+- [x] index.patch——修复最大连接数无法获取而显示默认4096
+- [x] smb.conf.template.patch——samba配置修改
+- [x] sysctl.patch——网络优化
 

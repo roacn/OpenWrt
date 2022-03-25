@@ -73,9 +73,9 @@ pushd feeds/luci
 
 cd themes
 
-echo "添加主题 new theme neobird"
-rm -rf ./luci-theme-neobird
-git clone https://github.com/thinktip/luci-theme-neobird.git
+#echo "添加主题 new theme neobird"
+#rm -rf ./luci-theme-neobird
+#git clone https://github.com/thinktip/luci-theme-neobird.git
 
 popd
 #############################################popd#############################################

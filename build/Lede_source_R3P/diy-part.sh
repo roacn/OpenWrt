@@ -81,9 +81,9 @@ git clone https://github.com/sirpdboy/luci-app-advanced
 
 cd ../themes
 
-echo "添加主题 new theme neobird"
-rm -rf ./luci-theme-neobird
-git clone https://github.com/thinktip/luci-theme-neobird.git
+#echo "添加主题 new theme neobird"
+#rm -rf ./luci-theme-neobird
+#git clone https://github.com/thinktip/luci-theme-neobird.git
 
 #############################################
 #echo "添加插件 luci-app-aliyundrive-webdav"

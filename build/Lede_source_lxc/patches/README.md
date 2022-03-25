@@ -1,5 +1,3 @@
-《[patch补丁制作](https://github.com/roacn/shuoming/blob/master/buding.md)》
-
 
 
 - [x] autocore.patch——修改CPU信息显示
