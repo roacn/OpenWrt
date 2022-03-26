@@ -1,0 +1,67 @@
+
+config crontab
+	option day '*'
+	option month '*'
+	option command 'sync && echo 3 > /proc/sys/vm/drop_caches'
+	option minute '33'
+	option enable '1'
+	option week '6'
+	option hour '6'
+
+config crontab
+	option month '*'
+	option day '*'
+	option enable '1'
+	option week '*'
+	option hour '3'
+	option minute '33'
+	option command 'sysfree.sh'
+
+config crontab
+	option enable '1'
+	option week '1'
+	option hour '6'
+	option minute '51'
+	option command 'sleep 5 && touch /etc/banner && reboot'
+
+config crontab
+	option month '*'
+	option day '*'
+	option week '*'
+	option enable '0'
+	option hour '*/12'
+	option minute '30'
+	option command 'poweroff'
+
+config crontab
+	option month '*'
+	option day '*'
+	option week '1-5'
+	option hour '7'
+	option minute '50'
+	option enable '0'
+	option command '/etc/init.d/ksmdb restart &&/etc/init.d/samba restart'
+
+config crontab
+	option month '*'
+	option day '*'
+	option minute '0'
+	option week '1-5'
+	option hour '18'
+	option enable '0'
+	option command '/etc/init.d/network restart'
+
+config crontab
+	option minute '0'
+	option week '*'
+	option hour '5'
+	option enable '0'
+	option command 'ifdown wan && ifup wan'
+
+config crontab
+	option minute '0'
+	option week '2'
+	option hour '5'
+	option enable '0'
+	option command 'killall -q pppd && sleep 5 && pppd file /tmp/ppp/options.wan'
+

@@ -12,7 +12,7 @@ on:
     branches:
       - main
     paths:
-      - 'build/Lede_source/start-up/start'
+      - 'build/Lede_source_x86/start-up/start'
   #schedule:
    #- cron: 0 2 * * 0,5
 env:
@@ -37,9 +37,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Lede_source]
+        target: [Lede_source_x86]
         
-        # [Lede_source,Lede_source_lxc,Lede_source_R3P,Lienol_source,Mortal_source,Tianling_source,openwrt_amlogic]
+        # [Lede_source,Lede_source_lxc,Lede_source_x86,Lede_source_R3P,Lienol_source,Mortal_source,Tianling_source,openwrt_amlogic]
 
     steps:
     - name: 准备结束

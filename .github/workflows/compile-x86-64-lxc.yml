@@ -39,7 +39,7 @@ jobs:
       matrix:
         target: [Lede_source_lxc]
         
-        # [Lede_source,Lede_source_lxc,Lede_source_R3P,Lienol_source,Mortal_source,Tianling_source,openwrt_amlogic]
+        # [Lede_source,Lede_source_lxc,Lede_source_x86,Lede_source_R3P,Lienol_source,Mortal_source,Tianling_source,openwrt_amlogic]
 
     steps:
     - name: 准备结束

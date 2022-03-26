@@ -147,7 +147,7 @@ elif [[ "${REPO_BRANCH}" == "openwrt-18.06" ]]; then
 	cp -rf "${Home}"/build/common/TIANLING/files "${Home}"
 	cp -rf "${Home}"/build/common/TIANLING/diy/* "${Home}"
 	cp -rf "${Home}"/build/common/TIANLING/patches/* "${PATH1}/patches"
-	curl -fsSL https://raw.githubusercontent.com/roacn/common/main/Convert/1806-default-settings > ${Home}/package/emortal/default-settings/files/99-default-settings
+	curl -fsSL https://raw.githubusercontent.com/roacn/build-actions/main/build/common/Convert/1806-default-settings > ${Home}/package/emortal/default-settings/files/99-default-settings
 elif [[ "${REPO_BRANCH}" == "openwrt-21.02" ]]; then
 	cp -rf "${Home}"/build/common/MORTAL/files "${Home}"
 	cp -rf "${Home}"/build/common/MORTAL/diy/* "${Home}"

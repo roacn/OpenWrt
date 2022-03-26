@@ -1,0 +1,9 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+# 去除coremark定时任务
+if [[ `grep -c "coremark" /etc/crontabs/root` -eq 1 ]]; then
+  sed -i /coremark/d /etc/crontabs/root
+fi
+# 设置默认eth0为1GB全双工
+ethtool -s eth0 speed 1000 duplex full
+exit 0
