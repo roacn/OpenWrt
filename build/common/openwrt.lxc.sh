@@ -58,7 +58,7 @@ release_chose(){
         n0=`echo ${release} | sed 's/[0-9]//g'`
         if [[ ! -z $n0 ]]; then
             TIME r "输入错误，请输入数字！"
-        elif [[ ${release} -eq 0 ]] || [[ ${release} -gt ${choicesnum} ]];then
+        elif [[ ${release} -eq 0 ]] || [[ ${release} -gt ${choicesnum} ]]; then
             TIME r "输入超出范围，请重新输入！"
         else
             echo "${releases}" | tail -n ${release} | head -n 1 > ${Download_Path}/DOWNLOAD_URL
