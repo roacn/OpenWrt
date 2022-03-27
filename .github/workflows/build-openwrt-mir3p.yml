@@ -138,7 +138,7 @@ jobs:
  
     - name: 加载源,补丁和自定义设置
       run: |
-        cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
+        cp -rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
         mv -f "${Home}"/build/common/*.sh "${PATH1}"
         source "${PATH1}/common.sh" && Diy_settings
         cd openwrt
@@ -156,7 +156,7 @@ jobs:
         ./scripts/feeds update -a > /dev/null 2>&1
         ./scripts/feeds install -a > /dev/null 2>&1
         ./scripts/feeds install -a -f
-        [[ -e "$PATH1/$CONFIG_FILE" ]] && mv "$PATH1/$CONFIG_FILE" .config
+        [[ -e "$PATH1/${CONFIG_FILE}" ]] && cp "$PATH1/${CONFIG_FILE}" .config
         if [[ "${REGULAR_UPDATE}" == "true" ]]; then
           source "${PATH1}/upgrade.sh" && Diy_Part1
         fi
@@ -175,7 +175,7 @@ jobs:
         source "${PATH1}/common.sh" && Diy_chajian > /dev/null 2>&1
         make defconfig > /dev/null 2>&1
         ./scripts/diffconfig.sh > ${GITHUB_WORKSPACE}/${CONFIG_FILE}
-        cp -Rf ${GITHUB_WORKSPACE}/${CONFIG_FILE} ${GITHUB_WORKSPACE}/config.txt
+        cp -rf ${GITHUB_WORKSPACE}/${CONFIG_FILE} ${GITHUB_WORKSPACE}/config.txt
         echo "::set-output name=status::success"
         echo "TARGET_BOARD=$(awk -F '[="]+' '/TARGET_BOARD/{print $2}' .config)" >> $GITHUB_ENV
         echo "TARGET_SUBTARGET=$(awk -F '[="]+' '/TARGET_SUBTARGET/{print $2}' .config)" >> $GITHUB_ENV
@@ -212,14 +212,14 @@ jobs:
           sed -i "s/${TARGET1}/${TARGET2}/g" repo/.github/workflows/${{env.COMPILEYML}} && echo "change ${TARGET1} to ${TARGET2}"
           yn_target="true"
         fi
+        if [[ `cat $GITHUB_WORKSPACE/${CONFIG_FILE}` != `cat $PATH1/${CONFIG_FILE}` ]]; then
+          yn_config="true"
+        fi
         cd ${Home}
         source "${PATH1}/common.sh" && Diy_plugin 2>/dev/null
         cd $GITHUB_WORKSPACE/repo
         if [[ -n "$(ls -A "build/${{matrix.target}}/${CONFIG_FILE}" 2>/dev/null)" ]]; then
           git rm -rf build/${{matrix.target}}/${CONFIG_FILE} && echo "remove build/${{matrix.target}}/${CONFIG_FILE}"
-        fi
-        if [[ `cat $GITHUB_WORKSPACE/${CONFIG_FILE}` != `cat build/${{matrix.target}}/${CONFIG_FILE}` ]]; then
-          yn_config="true"
         fi
         cp -rf $GITHUB_WORKSPACE/${CONFIG_FILE} build/${{matrix.target}}/${CONFIG_FILE} && echo "copy $GITHUB_WORKSPACE/${CONFIG_FILE} to build/${{matrix.target}}/${CONFIG_FILE}"
         #githead=`git log --oneline | sed -n '1p' | cut -d " " -f1`
@@ -227,7 +227,8 @@ jobs:
         #cat >> ${{ env.PATH1 }}/releaseinfo.md <<-EOF
         #- [x] [plugin](${{ env.Github }}/blob/${githead}/build/${{ env.Modelfile }}/plugin)
         #EOF
-        if [[ yn_target == "true" ]] && [[ yn_config == "true" ]]; then
+        echo "yn_target=${yn_target}; yn_config=${yn_config}"
+        if [[ ${yn_target} == "true" ]] && [[ ${yn_config} == "true" ]]; then
           git add .
           git commit -m "Update plugin and ${CONFIG_FILE}"
           git push --force "https://${{ secrets.REPO_TOKEN }}@github.com/${{github.repository}}" HEAD:main
