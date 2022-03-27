@@ -35,7 +35,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Mortal_source,Lienol_source,openwrt_amlogic]
+        target: [Lienol_source,Mortal_source,Tianling_source,openwrt_amlogic]
         
         # [Lede_source,Lede_source_lxc,Lede_source_x86,Lede_source_R3P,Lienol_source,Mortal_source,Tianling_source,openwrt_amlogic]
 
