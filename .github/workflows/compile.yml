@@ -10,6 +10,7 @@ on:
   # 触发类型可以自定义，但须对应触发.yml文件内相同，例如：x86-64-lxc
   repository_dispatch:
     types: [编译通用机型固件]
+  workflow_dispatch:
   #schedule:
    #- cron: 0 2 * * 0,5
 env:
@@ -248,7 +249,7 @@ jobs:
       run: |
         cd openwrt
         source "${PATH1}/upgrade.sh" && Diy_Part2 2>/dev/null
-
+        
     - name: 解锁固件分区(ramips系列专用)
       if: env.UNLOCK_PARTITIONS == 'true'
       run: |
@@ -379,3 +380,4 @@ jobs:
         elif [[ "${SERVERCHAN_SCKEY}" == "PUSH" ]]; then
           curl -k --data token="${{ secrets.PUSH_PLUS_TOKEN }}" --data title="[${{ env.CODE }}-${{ env.TARGET_PROFILE }}]编译成功" --data "content=我亲爱的✨主人✨：您使用【${{env.CangKu}}】仓库【${{matrix.target}}】文件夹编译的[${{ env.CODE }}-${{ env.TARGET_PROFILE }}]固件顺利编译完成了！💐https://github.com/${{github.repository}}/releases" "http://www.pushplus.plus/send"
         fi
+        

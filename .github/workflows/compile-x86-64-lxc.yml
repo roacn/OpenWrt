@@ -11,8 +11,8 @@ on:
   repository_dispatch:
     types: [x86-64-lxc]
   workflow_dispatch:
-  #schedule:
-   #- cron: 0 2 * * 0,5
+  schedule:
+   - cron: 0 2 * * 0,5
 env:
   Github: https://github.com/${{github.repository}}
   Author: ${{github.actor}}
@@ -249,6 +249,7 @@ jobs:
       run: |
         cd openwrt
         source "${PATH1}/upgrade.sh" && Diy_Part2 2>/dev/null
+        
     - name: 解锁固件分区(ramips系列专用)
       if: env.UNLOCK_PARTITIONS == 'true'
       run: |
