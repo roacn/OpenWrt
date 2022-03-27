@@ -7,7 +7,6 @@
 name: 删除releases与workflows
 
 on:
-  repository_dispatch:
   workflow_dispatch:
   schedule:
     - cron: '0 16 * * 6'

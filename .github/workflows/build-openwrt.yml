@@ -5,7 +5,7 @@
 # Author: Ss.
 #=================================================
 
-name: 『专用』触发xiaomi_mir3p
+name: 触发通用机型编译
 on:
   workflow_dispatch:
     inputs:
@@ -24,14 +24,14 @@ on:
 
 
 # 定时触发开启开始编译(把下面两个#去掉开启,时间设置请看定时开启编译说明)
-  schedule:
-   - cron: 50 5 */16 * *
+  #schedule:
+   #- cron: 45 6 * * 5
 
 # 注意：为保证触发正常，请修改BUILDYML、COMPILEYML、EVENT_TYPE，其中前2个为文件名，第3个为自定义，保证在上面2个文件内定义一致，但要避免与其它文件内重复。
 env:
-  BUILDYML: build-openwrt-mir3p.yml
-  COMPILEYML: compile-mir3p.yml
-  EVENT_TYPE: xiaomi_mir3p
+  BUILDYML: build-openwrt.yml
+  COMPILEYML: compile.yml
+  EVENT_TYPE: 编译通用机型固件
   Github: https://github.com/${{github.repository}}
   Author: ${{github.actor}}
   Apidz: ${{github.repository}}
@@ -50,7 +50,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Lede_source_R3P]
+        target: [Mortal_source,Lienol_source,openwrt_amlogic]
 
         # [Lede_source,Lede_source_lxc,Lede_source_x86,Lede_source_R3P,Lienol_source,Mortal_source,Tianling_source,openwrt_amlogic]
         

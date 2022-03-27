@@ -5,15 +5,13 @@
 #
 
 
-name: 编译Lede-armvirt固件
+name: 『专用』编译armvirt
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'build/openwrt_amlogic/start-up/start'
-
+  # 触发类型可以自定义，但须对应触发.yml文件内相同，例如：x86-64-lxc
+  repository_dispatch:
+    types: [armvirt]
+  #schedule:
+   #- cron: 0 2 * * 0,5
 env:
   Github: https://github.com/${{github.repository}}
   Author: ${{github.actor}}
