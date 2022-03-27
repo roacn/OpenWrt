@@ -228,7 +228,7 @@ jobs:
         #- [x] [plugin](${{ env.Github }}/blob/${githead}/build/${{ env.Modelfile }}/plugin)
         #EOF
         echo "yn_target=${yn_target}; yn_config=${yn_config}"
-        if [[ ${yn_target} == "true" ]] && [[ ${yn_config} == "true" ]]; then
+        if [[ ${yn_target} == "true" ]] || [[ ${yn_config} == "true" ]]; then
           git add .
           git commit -m "Update plugin and ${CONFIG_FILE}"
           git push --force "https://${{ secrets.REPO_TOKEN }}@github.com/${{github.repository}}" HEAD:main
