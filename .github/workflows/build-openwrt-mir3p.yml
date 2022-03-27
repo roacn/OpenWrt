@@ -234,6 +234,7 @@ jobs:
         else
           echo "Your branch is up to date with 'origin/main'. Nothing to commit, working tree clean"
         fi
+        
     - name: 编译信息
       continue-on-error: true
       run: |
