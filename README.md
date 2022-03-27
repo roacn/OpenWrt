@@ -1,7 +1,7 @@
-![R3P](https://github.com/roacn/build-actions/workflows/编译Lede-xiaomi-r3p固件/badge.svg?)
-![x86-64-lxc](https://github.com/roacn/build-actions/workflows/编译Lede-x86-64-lxc固件/badge.svg?)
-![x86-64](https://github.com/roacn/build-actions/workflows/编译Lede-x86-64固件/badge.svg?)
-![armvirt](https://github.com/roacn/build-actions/workflows/编译Lede-armvirt固件/badge.svg?)
+![R3P](https://github.com/roacn/build-actions/workflows/『专用』编译xiaomi_mir3p/badge.svg?)
+![x86-64-lxc](https://github.com/roacn/build-actions/workflows/『专用』编译x86-64-lxc/badge.svg?)
+![x86-64](https://github.com/roacn/build-actions/workflows/『专用』编译x86-64/badge.svg?)
+![armvirt](https://github.com/roacn/build-actions/workflows/『专用』编译armvirt/badge.svg?)
 
 
 ### 介绍
