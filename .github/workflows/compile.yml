@@ -5,7 +5,7 @@
 #
 
 
-name: 编译通用机型固件
+name: 『通用』编译通用机型固件
 on:
   # 触发类型可以自定义，但须对应触发.yml文件内相同，例如：x86-64-lxc
   repository_dispatch:
