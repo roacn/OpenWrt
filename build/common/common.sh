@@ -92,7 +92,6 @@ sed -i "/exit 0/i\chmod +x /etc/webweb.sh && source /etc/webweb.sh" $ZZZ
 # 天灵源码18.06 diy.sh文件
 ################################################################################################################
 Diy_Tianling() {
-
 find . -name 'luci-app-argon-config' -o -name 'luci-theme-argon' -o -name 'luci-theme-argonv3' -o -name 'luci-theme-netgear' | xargs -i rm -rf {}
 find . -name 'luci-app-netdata' -o -name 'netdata' -o -name 'luci-app-cifs' | xargs -i rm -rf {}
 find . -name 'luci-app-wrtbwmon' -o -name 'wrtbwmon' -o -name 'luci-app-wol' | xargs -i rm -rf {}
@@ -105,9 +104,8 @@ find . -name 'luci-app-adguardhome' -o -name 'adguardhome' -o -name 'luci-theme-
 ################################################################################################################
 Diy_mortal() {
 find . -name 'luci-app-netdata' -o -name 'netdata' -o -name 'luci-app-cifs' | xargs -i rm -rf {}
-find . -name 'luci-app-wol' -o -name 'luci-app-argon-config' | xargs -i rm -rf {}
-find . -name 'luci-app-adguardhome' -o -name 'adguardhome' | xargs -i rm -rf {}
-rm -rf feeds/luci/themes
+find . -name 'luci-app-adguardhome' -o -name 'adguardhome' -o -name 'luci-app-wol' | xargs -i rm -rf {}
+find . -name 'luci-app-wrtbwmon' -o -name 'wrtbwmon' | xargs -i rm -rf {}
 }
 
 
@@ -404,27 +402,27 @@ fi
 ################################################################################################################
 Diy_plugin() {
 	cd ${Home}
-	grep -i CONFIG_PACKAGE_luci-app .config | grep  -v \# > Plug-in
-	grep -i CONFIG_PACKAGE_luci-theme .config | grep  -v \# >> Plug-in
+	grep -i CONFIG_PACKAGE_luci-app .config | grep  -v \# > Plug-in 2>/dev/null
+	grep -i CONFIG_PACKAGE_luci-theme .config | grep  -v \# >> Plug-in 2>/dev/null
 	if [[ `grep -c "CONFIG_PACKAGE_luci-i18n-qbittorrent-zh-cn=y" ${Home}/.config` -eq '0' ]]; then
-		sed -i '/qbittorrent/d' Plug-in
+		sed -i '/qbittorrent/d' Plug-in 2>/dev/null
 	fi
 	if [[ `grep -c "CONFIG_PACKAGE_luci-app-passwall=y" ${Home}/.config` -eq '0' ]]; then	
-		sed -i '/luci-app-passwall/d' Plug-in
+		sed -i '/luci-app-passwall/d' Plug-in 2>/dev/null
 	else
-		sed -i '/luci-app-passwall_/d' Plug-in
+		sed -i '/luci-app-passwall_/d' Plug-in 2>/dev/null
 	fi
 	if [[ `grep -c "CONFIG_PACKAGE_luci-app-passwall2=y" ${Home}/.config` -eq '0' ]]; then
-		sed -i '/luci-app-passwall2/d' Plug-in
+		sed -i '/luci-app-passwall2/d' Plug-in 2>/dev/null
 	else
-		sed -i '/luci-app-passwall2_/d' Plug-in
+		sed -i '/luci-app-passwall2_/d' Plug-in 2>/dev/null
 	fi
 	sed -i '/INCLUDE/d' Plug-in > /dev/null 2>&1
 	sed -i '/=m/d' Plug-in > /dev/null 2>&1
-	sed -i 's/CONFIG_PACKAGE_//g' Plug-in
-	sed -i 's/=y//g' Plug-in
-	cp -f Plug-in $GITHUB_WORKSPACE/repo/build/${Modelfile}/plugin
-	sed -i 's/ /\n\n/g' $GITHUB_WORKSPACE/repo/build/${Modelfile}/plugin
+	sed -i 's/CONFIG_PACKAGE_//g' Plug-in 2>/dev/null
+	sed -i 's/=y//g' Plug-in 2>/dev/null
+	cp -f Plug-in $GITHUB_WORKSPACE/repo/build/${Modelfile}/plugin 2>/dev/null
+	sed -i 's/ /\n\n/g' $GITHUB_WORKSPACE/repo/build/${Modelfile}/plugin 2>/dev/null
 }
 
 
@@ -471,28 +469,28 @@ if [[ `grep -c "CONFIG_PACKAGE_luci-app-adguardhome=y" ${Home}/.config` -eq '1' 
 fi
 
 if [[ "${BY_INFORMATION}" == "true" ]]; then
-	grep -i CONFIG_PACKAGE_luci-app .config | grep  -v \# > Plug-in
-	grep -i CONFIG_PACKAGE_luci-theme .config | grep  -v \# >> Plug-in
+	grep -i CONFIG_PACKAGE_luci-app .config | grep  -v \# > Plug-in 2>/dev/null
+	grep -i CONFIG_PACKAGE_luci-theme .config | grep  -v \# >> Plug-in 2>/dev/null
 	if [[ `grep -c "CONFIG_PACKAGE_luci-i18n-qbittorrent-zh-cn=y" ${Home}/.config` -eq '0' ]]; then
-		sed -i '/qbittorrent/d' Plug-in
+		sed -i '/qbittorrent/d' Plug-in 2>/dev/null
 	fi
 	if [[ `grep -c "CONFIG_PACKAGE_luci-app-passwall=y" ${Home}/.config` -eq '0' ]]; then	
-		sed -i '/luci-app-passwall/d' Plug-in
+		sed -i '/luci-app-passwall/d' Plug-in 2>/dev/null
 	else
-		sed -i '/luci-app-passwall_/d' Plug-in
+		sed -i '/luci-app-passwall_/d' Plug-in 2>/dev/null
 	fi
 	if [[ `grep -c "CONFIG_PACKAGE_luci-app-passwall2=y" ${Home}/.config` -eq '0' ]]; then
-		sed -i '/luci-app-passwall2/d' Plug-in
+		sed -i '/luci-app-passwall2/d' Plug-in 2>/dev/null
 	else
-		sed -i '/luci-app-passwall2_/d' Plug-in
+		sed -i '/luci-app-passwall2_/d' Plug-in 2>/dev/null
 	fi
 	sed -i '/INCLUDE/d' Plug-in > /dev/null 2>&1
 	sed -i '/=m/d' Plug-in > /dev/null 2>&1
-	sed -i 's/CONFIG_PACKAGE_/、/g' Plug-in
-	sed -i 's/=y/\"/g' Plug-in
-	awk '$0=NR$0' Plug-in > Plug-2
-	awk '{print "	" $0}' Plug-2 > Plug-in
-	sed -i "s/^/TIME g \"/g" Plug-in
+	sed -i 's/CONFIG_PACKAGE_/、/g' Plug-in 2>/dev/null
+	sed -i 's/=y/\"/g' Plug-in 2>/dev/null
+	awk '$0=NR$0' Plug-in > Plug-2 2>/dev/null
+	awk '{print "	" $0}' Plug-2 > Plug-in 2>/dev/null
+	sed -i "s/^/TIME g \"/g" Plug-in 2>/dev/null
 
 	if [[ `grep -c "KERNEL_PATCHVER:=" ${Home}/target/linux/${TARGET_BOARD}/Makefile` -eq '1' ]]; then
 		PATCHVE="$(egrep -o 'KERNEL_PATCHVER:=[0-9]+\.[0-9]+' ${Home}/target/linux/${TARGET_BOARD}/Makefile |cut -d "=" -f2)"
