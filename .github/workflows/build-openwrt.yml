@@ -156,7 +156,7 @@ jobs:
         ./scripts/feeds update -a > /dev/null 2>&1
         ./scripts/feeds install -a > /dev/null 2>&1
         ./scripts/feeds install -a -f
-        [[ -e "$PATH1/$CONFIG_FILE" ]] && mv "$PATH1/$CONFIG_FILE" .config
+        [[ -e "$PATH1/${CONFIG_FILE}" ]] && cp "$PATH1/${CONFIG_FILE}" .config
         if [[ "${REGULAR_UPDATE}" == "true" ]]; then
           source "${PATH1}/upgrade.sh" && Diy_Part1
         fi
@@ -212,11 +212,11 @@ jobs:
           sed -i "s/${TARGET1}/${TARGET2}/g" repo/.github/workflows/${{env.COMPILEYML}} && echo "change ${TARGET1} to ${TARGET2}"
           yn_target="true"
         fi
-        cd ${Home}
-        source "${PATH1}/common.sh" && Diy_plugin 2>/dev/null
-        if [[ `cat $GITHUB_WORKSPACE/${CONFIG_FILE}` != `cat build/${{matrix.target}}/${CONFIG_FILE}` ]]; then
+        if [[ `cat $GITHUB_WORKSPACE/${CONFIG_FILE}` != `cat $PATH1/${CONFIG_FILE}` ]]; then
           yn_config="true"
         fi
+        cd ${Home}
+        source "${PATH1}/common.sh" && Diy_plugin 2>/dev/null
         cd $GITHUB_WORKSPACE/repo
         if [[ -n "$(ls -A "build/${{matrix.target}}/${CONFIG_FILE}" 2>/dev/null)" ]]; then
           git rm -rf build/${{matrix.target}}/${CONFIG_FILE} && echo "remove build/${{matrix.target}}/${CONFIG_FILE}"
