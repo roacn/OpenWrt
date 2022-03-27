@@ -1,0 +1,14 @@
+luci-app-control-timewol
+luci-app-control-webrestriction
+luci-app-control-weburl
+luci-app-ddns
+luci-app-firewall
+luci-app-opkg
+luci-app-ramfree
+luci-app-samba
+luci-app-timecontrol
+luci-app-upnp
+luci-app-usb-printer
+luci-app-vlmcsd
+luci-app-vsftpd
+luci-theme-bootstrap
