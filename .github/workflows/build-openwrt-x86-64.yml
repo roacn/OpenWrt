@@ -5,7 +5,7 @@
 # Author: Ss.
 #=================================================
 
-name: 『专用』触发x86-64
+name: 触发x86-64
 on:
   workflow_dispatch:
     inputs:
@@ -31,7 +31,7 @@ on:
 env:
   BUILDYML: build-openwrt-x86-64.yml
   COMPILEYML: compile-x86-64.yml
-  EVENT_TYPE: x86-64
+  EVENT_TYPE: 编译x86-64固件
   Github: https://github.com/${{github.repository}}
   Author: ${{github.actor}}
   Apidz: ${{github.repository}}

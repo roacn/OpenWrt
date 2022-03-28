@@ -5,11 +5,11 @@
 #
 
 
-name: 『专用』编译armvirt
+name: 编译armvirt固件
 on:
   # 触发类型可以自定义，但须对应触发.yml文件内相同，例如：x86-64-lxc
   repository_dispatch:
-    types: [armvirt]
+    types: [编译armvirt固件]
   workflow_dispatch:
   #schedule:
    #- cron: 0 2 * * 0,5

@@ -5,7 +5,7 @@
 # Author: Ss.
 #=================================================
 
-name: 『专用』触发armvirt
+name: 触发armvirt
 on:
   workflow_dispatch:
     inputs:
@@ -31,7 +31,7 @@ on:
 env:
   BUILDYML: build-openwrt-amlogic.yml
   COMPILEYML: compile-amlogic.yml
-  EVENT_TYPE: armvirt
+  EVENT_TYPE: 编译armvirt固件
   Github: https://github.com/${{github.repository}}
   Author: ${{github.actor}}
   Apidz: ${{github.repository}}

@@ -5,7 +5,7 @@
 # Author: Ss.
 #=================================================
 
-name: 『专用』触发xiaomi_mir3p
+name: 触发xiaomi_mir3p
 on:
   workflow_dispatch:
     inputs:
@@ -31,7 +31,7 @@ on:
 env:
   BUILDYML: build-openwrt-mir3p.yml
   COMPILEYML: compile-mir3p.yml
-  EVENT_TYPE: xiaomi_mir3p
+  EVENT_TYPE: 编译xiaomi_mir3p固件
   Github: https://github.com/${{github.repository}}
   Author: ${{github.actor}}
   Apidz: ${{github.repository}}
