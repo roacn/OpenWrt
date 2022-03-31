@@ -194,7 +194,7 @@ function install_bootstrap() {
   opkg update
   opkg remove luci-theme-bootstrap
   sed -i '/bootstrap/d' /etc/config/luci
-  rm -rf /tmp/luci-*cache
+  rm -rf /tmp/luci-*cache*
   opkg install luci-theme-bootstrap
   if [[ $? -ne 0 ]]; then
     print_error "固件自带源安装主题失败，正在尝试外部源，请稍后..."
