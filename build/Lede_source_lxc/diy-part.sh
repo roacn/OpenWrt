@@ -7,7 +7,8 @@ echo '修改 IP设置'
 cat >$NETIP <<-EOF
 uci delete network.wan                                                               # 删除wan口
 uci delete network.wan6                                                             # 删除wan6口
-#uci set network.lan.type='bridge'                                             # lan口桥接(单LAN口无需桥接，多LAN口必须桥接)
+uci delete network.lan.type                                                         # 关闭桥接选项(同下步互斥)
+#uci set network.lan.type='bridge'                                             # lan口桥接(单LAN口无需桥接，多LAN口必须桥接，同上步互斥)
 uci set network.lan.proto='static'                                               # lan口静态IP
 uci set network.lan.ipaddr='192.168.1.2'                                    # IPv4 地址(openwrt后台地址)
 uci set network.lan.netmask='255.255.255.0'                             # IPv4 子网掩码
