@@ -1,6 +1,5 @@
 luci-app-adbyby-plus
 luci-app-advanced
-luci-app-argon-config
 luci-app-diskman
 luci-app-filetransfer
 luci-app-firewall
@@ -13,7 +12,6 @@ luci-app-ttyd
 luci-app-webadmin
 luci-app-wolplus
 luci-app-zerotier
-luci-theme-argon
 luci-theme-bootstrap
 luci-theme-material
 luci-theme-neobird
