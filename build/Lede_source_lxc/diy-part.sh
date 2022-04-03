@@ -40,11 +40,11 @@ uci commit firewall
 uci set dropbear.@dropbear[0].Port='8822'                                # SSH端口设置为'8822'
 uci commit dropbear
 uci set system.@system[0].hostname='OpenWrt'                      # 修改主机名称为OpenWrt
-sed -i 's/\/bin\/login/\/bin\/login -f root/' /etc/config/ttyd       # 设置ttyd免帐号登录，如若开启，进入OPENWRT后可能要重启一次才生效
+uci set luci.main.mediaurlbase='/luci-static/argon'                    # 设置argon为默认主题
+uci commit luci
+uci set ttyd.@ttyd[0].command='/bin/login -f root'                  # 设置ttyd免帐号登录
+uci commit ttyd
 EOF
-
-echo '选择argon为默认主题'
-sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
 echo '增加个性名字 ${Author} 默认为你的github帐号'
 sed -i "s/OpenWrt /Ss. compiled in $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" $ZZZ
