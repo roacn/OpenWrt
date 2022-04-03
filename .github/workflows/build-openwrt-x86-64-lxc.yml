@@ -43,7 +43,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
 
     name: 启动${{matrix.target}}编译
@@ -246,9 +246,9 @@ jobs:
           source "${PATH1}/common.sh" && Diy_xinxi
         fi
         
-  trigger-compile:
+  compile-dispatch:
     needs: [build]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
     - name: 触发yml启动"${{matrix.target}}"编译
@@ -261,7 +261,7 @@ jobs:
         -d '{"event_type": "${{ env.EVENT_TYPE }}"}'
         
   delete-releases-artifacts:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
     - name: 读取设置

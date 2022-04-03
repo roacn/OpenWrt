@@ -11,6 +11,15 @@ on:
   repository_dispatch:
     types: [编译xiaomi_mir3p固件]
   workflow_dispatch:
+    inputs:
+      days:
+        description: '清理[X]天之前的Actions空间操作记录(可改)'
+        required: true
+        default: '7'
+      rele:
+        description: '保留[X]个Releases不被删除(可改)'
+        required: true
+        default: '6'
   schedule:
    - cron: 0 5 * * 5
 env:
@@ -28,7 +37,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
 
     name: 编译 "${{matrix.target}}"
@@ -381,3 +390,31 @@ jobs:
           curl -k --data token="${{ secrets.PUSH_PLUS_TOKEN }}" --data title="[${{ env.CODE }}-${{ env.TARGET_PROFILE }}]编译成功" --data "content=我亲爱的✨主人✨：您使用【${{env.CangKu}}】仓库【${{matrix.target}}】文件夹编译的[${{ env.CODE }}-${{ env.TARGET_PROFILE }}]固件顺利编译完成了！💐https://github.com/${{github.repository}}/releases" "http://www.pushplus.plus/send"
         fi
         
+  delete-releases-artifacts:
+    needs: [build]
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+    - name: 读取设置
+      run: |
+        [ ${{ github.event.inputs.rele }} ] && echo "keep_latest=${{ github.event.inputs.rele }}" >> $GITHUB_ENV || echo "keep_latest=6" >> $GITHUB_ENV
+        [ ${{ github.event.inputs.days }} ] && echo "retain_days=${{ github.event.inputs.days }}" >> $GITHUB_ENV || echo "retain_days=7" >> $GITHUB_ENV
+        
+    - name: 清理Actions
+      if: env.REPO_TOKEN
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+          token: ${{ secrets.REPO_TOKEN }}
+          repository: ${{ github.repository }}
+          keep_minimum_runs: 0
+          retain_days: ${{ env.retain_days }}
+    
+    - name: 删除releases
+      if: env.REPO_TOKEN
+      uses: dev-drprasad/delete-older-releases@master
+      with:
+        repo: ${{ github.repository }}
+        keep_latest: ${{ env.keep_latest }}
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
