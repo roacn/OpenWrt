@@ -75,41 +75,9 @@ sed -i '/CYXluq4wUazHjmCDBCqXF/d' $ZZZ
 pushd feeds/luci
 cd applications
 
-echo "添加插件 luci-app-advanced"
-rm -rf ./luci-app-advanced
-git clone https://github.com/sirpdboy/luci-app-advanced
-
-cd ../themes
-
-#echo "添加主题 new theme neobird"
-#rm -rf ./luci-theme-neobird
-#git clone https://github.com/thinktip/luci-theme-neobird.git
-
-#############################################
-#echo "添加插件 luci-app-aliyundrive-webdav"
-#rm -rf ./luci-app-aliyundrive-webdav
-#rm -rf ./aliyundrive-webdav
-#svn co https://github.com/messense/aliyundrive-webdav/trunk/openwrt/luci-app-aliyundrive-webdav
-#svn co https://github.com/messense/aliyundrive-webdav/trunk/openwrt/aliyundrive-webdav
-
-#echo "添加插件 luci-app-diskman"
-#rm -rf ./luci-app-diskman
-#git clone --depth=1 https://github.com/lisaac/luci-app-diskman
-#mkdir parted
-#cp luci-app-diskman/Parted.Makefile parted/Makefile
-
-#echo "添加插件 luci-app-onliner (need luci-app-nlbwmon)"
-#git clone --depth=1 https://github.com/rufengsuixing/luci-app-onliner
-
-#echo "添加插件 luci-app-serverchan"
-#rm -rf ./luci-app-serverchan
-#git clone --depth=1 https://github.com/tty228/luci-app-serverchan
-
-#echo "添加插件 luci-app-dockerman"
-#rm -rf ./luci-app-dockerman
-#rm -rf ./luci-lib-docker
-#svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman
-#svn co https://github.com/lisaac/luci-lib-docker/trunk/collections/luci-lib-docker
+#echo "添加插件 luci-app-advanced"
+#rm -rf ./luci-app-advanced
+#git clone https://github.com/sirpdboy/luci-app-advanced
 
 #echo "添加插件 luci-app-passwall"
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall
@@ -117,37 +85,22 @@ cd ../themes
 #echo "添加插件 luci-app-ssr-plus"
 #git clone --depth=1 https://github.com/fw876/helloworld luci-app-ssr-plus
 
+cd ../themes
+
+#echo "添加主题 new theme neobird"
+#rm -rf ./luci-theme-neobird
+#git clone https://github.com/thinktip/luci-theme-neobird.git
+
 #echo "添加主题 luci-theme-argon"
 #rm -rf ./luci-theme-argon
 #git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon
 
 #echo "添加主题 new theme jj"
 #git clone --depth=1 https://github.com/netitgo/luci-theme-jj.git
-#############################################
 
 popd
 #############################################popd#############################################
 
-#############################################pushd#############################################
-#Clone community packages to package/community
-#mkdir package/community
-#pushd package/community
-
-#echo "克隆 kenzok8/openwrt-packages"
-#git clone --depth=1 https://github.com/kenzok8/openwrt-packages
-##使用原作者
-#rm -rf ./openwrt-packages/{luci-app-diskman,luci-app-serverchan,luci-app-aliyundrive-webdav,aliyundrive-webdav}
-#rm -rf ./openwrt-packages/{luci-app-passwall,luci-app-ssr-plus,luci-app-ssr-mudb-server,naiveproxy,tcping}
-#rm -rf ./openwrt-packages/{luci-theme-argon_new,luci-app-jd-dailybonus}
-##smartdns源码出问题，暂删除
-#rm -rf ./openwrt-packages/{luci-app-smartdns,smartdns}
-
-#echo "克隆 kenzok8/small"
-#git clone --depth=1 https://github.com/kenzok8/small
-#rm -rf ./small/{shadowsocks-rust,shadowsocksr-libev,v2ray-core,v2ray-plugin,xray-core,xray-plugin}
-
-#popd
-#############################################popd#############################################
 
 echo "修改插件名字"
 sed -i 's/"Argon 主题设置"/"Argon设置"/g' `grep "Argon 主题设置" -rl ./`
