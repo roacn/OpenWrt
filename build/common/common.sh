@@ -116,12 +116,10 @@ Diy_all() {
 echo "--------------common_Diy_all start--------------"
 echo
 if [[ "${REPO_BRANCH}" == "master" ]]; then
-	git clone --depth 1 -b "${REPO_BRANCH}" https://github.com/roacn/openwrt-packages ${Home}/openwrt-package
-	rm -rf ${Home}/openwrt-package/diy
-	cp -rf ${Home}/openwrt-package/* "${Home}/feeds/openwrt-package" && rm -rf ${Home}/openwrt-package	
+	git clone --depth 1 -b "${REPO_BRANCH}" https://github.com/roacn/openwrt-packages ${Home}/feeds/openwrt-packages
+	rm -rf ${Home}/feeds/openwrt-package/diy
 else
-	git clone --depth 1 -b "${REPO_BRANCH}" https://github.com/281677160/openwrt-package ${Home}/openwrt-package
-	cp -rf ${Home}/openwrt-package/* "${Home}/feeds/openwrt-package" && rm -rf ${Home}/openwrt-package
+	git clone --depth 1 -b "${REPO_BRANCH}" https://github.com/281677160/openwrt-package ${Home}/feeds/openwrt-packages
 fi
 
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
