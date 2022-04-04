@@ -116,49 +116,49 @@ Diy_all() {
 echo "--------------common_Diy_all start--------------"
 echo
 if [[ "${REPO_BRANCH}" == "master" ]]; then
-	git clone --depth 1 -b "${REPO_BRANCH}" https://github.com/roacn/openwrt-packages "${Home}"/openwrt-package
-	rm -rf "${Home}"/openwrt-package/diy
-	cp -rf "${Home}"/openwrt-package/* "${Home}/package/lean" && rm -rf "${Home}"/openwrt-package	
+	git clone --depth 1 -b "${REPO_BRANCH}" https://github.com/roacn/openwrt-packages ${Home}/openwrt-package
+	rm -rf ${Home}/openwrt-package/diy
+	cp -rf ${Home}/openwrt-package/* "${Home}/feeds/openwrt-package" && rm -rf ${Home}/openwrt-package	
 else
-	git clone --depth 1 -b "${REPO_BRANCH}" https://github.com/281677160/openwrt-package "${Home}"/openwrt-package
-	cp -rf "${Home}"/openwrt-package/* "${Home}" && rm -rf "${Home}"/openwrt-package
+	git clone --depth 1 -b "${REPO_BRANCH}" https://github.com/281677160/openwrt-package ${Home}/openwrt-package
+	cp -rf ${Home}/openwrt-package/* "${Home}/feeds/openwrt-package" && rm -rf ${Home}/openwrt-package
 fi
 
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
-	[[ -f "${PATH1}/AutoUpdate.sh" ]] && cp -rf "${PATH1}"/AutoUpdate.sh package/base-files/files/bin/AutoUpdate.sh
-	[[ -f "${PATH1}/replace.sh" ]] && cp -rf "${PATH1}"/replace.sh package/base-files/files/bin/replace.sh
+	[[ -f "${PATH1}/AutoUpdate.sh" ]] && cp -rf ${PATH1}/AutoUpdate.sh package/base-files/files/bin/AutoUpdate.sh
+	[[ -f "${PATH1}/replace.sh" ]] && cp -rf ${PATH1}/replace.sh package/base-files/files/bin/replace.sh
 elif [[ ${PVE_LXC} != "true" ]]; then
 	svn co https://github.com/roacn/openwrt-packages/trunk/luci-app-autoupdate feeds/luci/applications/luci-app-autoupdate
 fi
-[[ -f "${PATH1}/openwrt.sh" ]] && cp -rf "${PATH1}"/openwrt.sh package/base-files/files/sbin/openwrt && chmod +x package/base-files/files/sbin/openwrt
-[[ -f "${PATH1}/openwrt.lxc.sh" ]] && cp -rf "${PATH1}"/openwrt.lxc.sh package/base-files/files/sbin/openwrt.lxc && chmod +x package/base-files/files/sbin/openwrt.lxc
+[[ -f "${PATH1}/openwrt.sh" ]] && cp -rf ${PATH1}/openwrt.sh package/base-files/files/sbin/openwrt && chmod +x package/base-files/files/sbin/openwrt
+[[ -f "${PATH1}/openwrt.lxc.sh" ]] && cp -rf ${PATH1}/openwrt.lxc.sh package/base-files/files/sbin/openwrt.lxc && chmod +x package/base-files/files/sbin/openwrt.lxc
 
 if [[ "${REPO_BRANCH}" == "master" ]]; then
-	cp -rf "${Home}"/build/common/LEDE/files "${Home}"
-	cp -rf "${Home}"/build/common/LEDE/diy/* "${Home}"
-	cp -rf "${Home}"/build/common/LEDE/patches/* "${PATH1}/patches"
-elif [[ "${REPO_BRANCH}" == "main" ]]; then
-	cp -rf "${Home}"/build/common/LIENOL/files "${Home}"
-	cp -rf "${Home}"/build/common/LIENOL/diy/* "${Home}"
-	cp -rf "${Home}"/build/common/LIENOL/patches/* "${PATH1}/patches"
+	cp -rf ${Home}/build/common/LEDE/files ${Home}
+	cp -rf ${Home}/build/common/LEDE/diy/* ${Home}
+	cp -rf ${Home}/build/common/LEDE/patches/* "${PATH1}/patches"
+elif [[ "${REPO_BRANCH}" == "22.03" ]]; then
+	cp -rf ${Home}/build/common/LIENOL/files ${Home}
+	cp -rf ${Home}/build/common/LIENOL/diy/* ${Home}
+	cp -rf ${Home}/build/common/LIENOL/patches/* "${PATH1}/patches"
 elif [[ "${REPO_BRANCH}" == "openwrt-18.06" ]]; then
-	cp -rf "${Home}"/build/common/TIANLING/files "${Home}"
-	cp -rf "${Home}"/build/common/TIANLING/diy/* "${Home}"
-	cp -rf "${Home}"/build/common/TIANLING/patches/* "${PATH1}/patches"
+	cp -rf ${Home}/build/common/TIANLING/files ${Home}
+	cp -rf ${Home}/build/common/TIANLING/diy/* ${Home}
+	cp -rf ${Home}/build/common/TIANLING/patches/* "${PATH1}/patches"
 	curl -fsSL https://raw.githubusercontent.com/roacn/build-actions/main/build/common/Convert/1806-default-settings > ${Home}/package/emortal/default-settings/files/99-default-settings
 elif [[ "${REPO_BRANCH}" == "openwrt-21.02" ]]; then
-	cp -rf "${Home}"/build/common/MORTAL/files "${Home}"
-	cp -rf "${Home}"/build/common/MORTAL/diy/* "${Home}"
-	cp -rf "${Home}"/build/common/MORTAL/patches/* "${PATH1}/patches"
+	cp -rf ${Home}/build/common/MORTAL/files ${Home}
+	cp -rf ${Home}/build/common/MORTAL/diy/* ${Home}
+	cp -rf ${Home}/build/common/MORTAL/patches/* "${PATH1}/patches"
 	chmod -R 777 ${Home}/build/common/Convert
-	cp -rf ${Home}/build/common/Convert/* "${Home}"
+	cp -rf ${Home}/build/common/Convert/* ${Home}
 	/bin/bash Convert.sh
 fi
 if [ -n "$(ls -A "${PATH1}/diy" 2>/dev/null)" ]; then
-	cp -rf "${PATH1}"/diy/* "${Home}"
+	cp -rf ${PATH1}/diy/* ${Home}
 fi
 if [ -n "$(ls -A "${PATH1}/files" 2>/dev/null)" ]; then
-	cp -rf "${PATH1}/files" "${Home}" && chmod -R +x ${Home}/files
+	cp -rf "${PATH1}/files" ${Home} && chmod -R +x ${Home}/files
 fi
 if [ -n "$(ls -A "${PATH1}/patches" 2>/dev/null)" ]; then
 	find "${PATH1}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 --forward --no-backup-if-mismatch"
@@ -440,7 +440,7 @@ exit 0
 
 
 if [[ `grep -c "CONFIG_PACKAGE_ntfs-3g=y" ${Home}/.config` -eq '1' ]]; then
-	mkdir -p files/etc/hotplug.d/block && cp -rf "${Home}"/build/common/Custom/10-mount  files/etc/hotplug.d/block/10-mount
+	mkdir -p files/etc/hotplug.d/block && cp -rf ${Home}/build/common/Custom/10-mount  files/etc/hotplug.d/block/10-mount
 fi
 
 

@@ -96,7 +96,7 @@ jobs:
           echo "ZZZ=package/lean/default-settings/files/zzz-default-settings" >> $GITHUB_ENV
           echo "CODE=Lede" >> $GITHUB_ENV
           echo "OpenWrt_name=18.06" >> $GITHUB_ENV
-        elif [[ "${REPO_BRANCH}" == "main" ]]; then
+        elif [[ "${REPO_BRANCH}" == "22.03" ]]; then
           echo "ZZZ=package/default-settings/files/zzz-default-settings" >> $GITHUB_ENV
           echo "CODE=Lienol" >> $GITHUB_ENV
           echo "OpenWrt_name=20.06" >> $GITHUB_ENV
@@ -154,8 +154,8 @@ jobs:
         source "${PATH1}/common.sh" && Diy_all > /dev/null 2>&1
         /bin/bash "${PATH1}/$DIY_PART_SH"
         ./scripts/feeds update -a > /dev/null 2>&1
+        ./scripts/feeds install -a -p openwrt-packages
         ./scripts/feeds install -a > /dev/null 2>&1
-        ./scripts/feeds install -a -f
         [[ -e "$PATH1/${CONFIG_FILE}" ]] && cp "$PATH1/${CONFIG_FILE}" .config
         if [[ "${REGULAR_UPDATE}" == "true" ]]; then
           source "${PATH1}/upgrade.sh" && Diy_Part1
