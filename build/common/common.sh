@@ -117,7 +117,7 @@ echo "--------------common_Diy_all start--------------"
 echo
 if [[ "${REPO_BRANCH}" == "master" ]]; then
 	git clone --depth 1 -b "${REPO_BRANCH}" https://github.com/roacn/openwrt-packages ${Home}/feeds/openwrt-packages
-	rm -rf ${Home}/feeds/openwrt-package/diy
+	rm -rf ${Home}/feeds/openwrt-packages/diy
 else
 	git clone --depth 1 -b "${REPO_BRANCH}" https://github.com/281677160/openwrt-package ${Home}/feeds/openwrt-packages
 fi
