@@ -15,9 +15,9 @@ luci-app-webadmin
 luci-app-wolplus
 luci-app-zerotier
 luci-theme-argon
-luci-theme-atmaterial
 luci-theme-bootstrap
 luci-theme-btmod
+luci-theme-jj
 luci-theme-material
 luci-theme-neobird
 luci-theme-netgear
