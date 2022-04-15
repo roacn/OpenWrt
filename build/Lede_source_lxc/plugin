@@ -5,10 +5,12 @@ luci-app-diskman
 luci-app-filetransfer
 luci-app-firewall
 luci-app-passwall
+luci-app-passwall2
 luci-app-ramfree
 luci-app-samba4
 luci-app-serverchan
 luci-app-smartdns
+luci-app-ssr-plus
 luci-app-ttyd
 luci-app-webadmin
 luci-app-wolplus
