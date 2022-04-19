@@ -25,9 +25,7 @@
 
 ---
 
-- [x] 《[lxc容器OpenWrt手动安装](https://github.com/roacn/myFavorites/blob/main/PVE/lxc%E5%AE%B9%E5%99%A8/LXC%E5%AE%B9%E5%99%A8%E5%AE%89%E8%A3%85OpenWrt.md)》
-
-- [x] 《[lxc容器OpenWrt一键安装、更新](https://github.com/roacn/myFavorites/blob/main/PVE/readme.md)》
+- [x] 《[lxc容器OpenWrt一键安装、更新](https://github.com/roacn/pve)》
 
 - [x] 《[IPV4/IPV6选择](https://github.com/roacn/shuoming/blob/master/%E5%85%B6%E4%BB%96%E8%AF%B4%E6%98%8E.md)》
 
