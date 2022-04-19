@@ -5,7 +5,6 @@ luci-app-diskman
 luci-app-filetransfer
 luci-app-firewall
 luci-app-passwall
-luci-app-passwall2
 luci-app-ramfree
 luci-app-samba4
 luci-app-serverchan
@@ -17,9 +16,6 @@ luci-app-wolplus
 luci-app-zerotier
 luci-theme-argon
 luci-theme-bootstrap
-luci-theme-btmod
-luci-theme-jj
 luci-theme-material
 luci-theme-neobird
 luci-theme-netgear
-luci-theme-opentopd
