@@ -33,6 +33,9 @@ uci set dhcp.@domain[0].ip='192.168.1.2'                                  # 对�
 uci add dhcp domain
 uci set dhcp.@domain[1].name='cdn.jsdelivr.net'                       # 网络→主机名→主机目录——“cdn.jsdelivr.net”
 uci set dhcp.@domain[1].ip='104.16.86.20'                                 # 对应IP解析——'104.16.86.20'
+uci add dhcp domain
+uci set dhcp.@domain[2].name='raw.githubusercontent.com'                       # 网络→主机名→主机目录——“raw.githubusercontent.com”
+uci set dhcp.@domain[2].ip='185.199.109.133'                                 # 对应IP解析——'185.199.109.133'
 uci commit dhcp
 uci delete firewall.@defaults[0].syn_flood                                   # 防火墙→SYN-flood 防御——关闭；默认开启
 uci set firewall.@defaults[0].fullcone='1'                                     # 防火墙→FullCone-NAT——启用；默认关闭
