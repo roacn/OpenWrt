@@ -3,4 +3,7 @@
 if [[ `grep -c "coremark" /etc/crontabs/root` -eq 1 ]]; then
   sed -i /coremark/d /etc/crontabs/root
 fi
+if [[ `grep -c "log_check.sh" /etc/crontabs/root` -eq 1 ]]; then
+  sed -i /log_check.sh/d /etc/crontabs/root
+fi
 exit 0
