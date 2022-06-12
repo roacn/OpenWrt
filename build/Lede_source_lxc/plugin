@@ -5,7 +5,6 @@ luci-app-diskman
 luci-app-filetransfer
 luci-app-firewall
 luci-app-passwall
-luci-app-ramfree
 luci-app-serverchan
 luci-app-smartdns
 luci-app-ssr-plus
