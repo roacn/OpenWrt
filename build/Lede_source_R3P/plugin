@@ -5,12 +5,12 @@ luci-app-diskman
 luci-app-filetransfer
 luci-app-firewall
 luci-app-poweroff
-luci-app-ramfree
 luci-app-rebootschedule
 luci-app-ttyd
 luci-app-turboacc
 luci-app-webadmin
 luci-app-wifischedule
+luci-app-wol
 luci-app-wolplus
 luci-theme-bootstrap
 luci-theme-material
