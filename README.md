@@ -30,16 +30,16 @@
 
 ---
 
-- [x] 《[lxc容器OpenWrt一键安装、更新](https://github.com/roacn/pve)》
+- 《[lxc容器OpenWrt一键安装、更新](https://github.com/roacn/pve)》
 
-- [x] 《[IPV4/IPV6选择](https://github.com/roacn/shuoming/blob/master/%E5%85%B6%E4%BB%96%E8%AF%B4%E6%98%8E.md)》
+- 《[IPV4/IPV6选择](https://github.com/roacn/shuoming/blob/master/%E5%85%B6%E4%BB%96%E8%AF%B4%E6%98%8E.md)》
 
-- [x] 《[NTFS格式U盘挂载](https://github.com/roacn/shuoming/blob/master/NTFS%E6%A0%BC%E5%BC%8F%E4%BC%98%E7%9B%98%E6%8C%82%E8%BD%BD)》
+- 《[NTFS格式U盘挂载](https://github.com/roacn/shuoming/blob/master/NTFS%E6%A0%BC%E5%BC%8F%E4%BC%98%E7%9B%98%E6%8C%82%E8%BD%BD)》
 
-- [x] 《[X86编译时选固件格式和设置overlay空间容量](https://github.com/roacn/shuoming/blob/master/overlay.md)》
+- 《[X86编译时选固件格式和设置overlay空间容量](https://github.com/roacn/shuoming/blob/master/overlay.md)》
 
-- [x] 《[固件vmdk格式转换](https://github.com/roacn/myFavorites/blob/main/ESXI/%E5%9B%BA%E4%BB%B6vmdk%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2.md)》
-  
+- 《[固件vmdk格式转换](https://github.com/roacn/myFavorites/blob/main/ESXI/%E5%9B%BA%E4%BB%B6vmdk%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2.md)》
+
 
 
 
