@@ -4,6 +4,9 @@
 ![armvirt](https://github.com/roacn/build-actions/workflows/编译armvirt固件/badge.svg?)
 
 
+
+
+
 ### 介绍
 
 ---
@@ -21,6 +24,8 @@
 
 
 
+
+
 ### 编译
 
 ---
@@ -35,6 +40,28 @@
 
 - [x] 《[固件vmdk格式转换](https://github.com/roacn/myFavorites/blob/main/ESXI/%E5%9B%BA%E4%BB%B6vmdk%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2.md)》
   
+
+
+
+
+
+### 说明
+
+---
+
+OpenWrt用作lxc容器部署时，会有部分兼容性问题，做了以下补丁，目前完美运行。
+
+lxc版本OpenWrt部分补丁：
+
+-  autocore.patch——修改CPU信息显示
+-  ethinfo.patch——修复ethtool: bad command line argument(s) For more information run ethtool -h错误
+-  index.patch——修复最大连接数无法获取而显示默认4096
+-  smb.conf.template.patch——samba配置修改
+-  sysctl.patch——网络优化
+
+
+
+
 
 ### 鸣谢
 
