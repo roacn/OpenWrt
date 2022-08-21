@@ -4,12 +4,13 @@ luci-app-autoupdate
 luci-app-diskman
 luci-app-filetransfer
 luci-app-firewall
+luci-app-ipsec-vpnd
 luci-app-passwall
-luci-app-ramfree
 luci-app-samba4
 luci-app-smartdns
 luci-app-ttyd
 luci-app-webadmin
+luci-app-wol
 luci-theme-bootstrap
 luci-theme-material
 luci-theme-neobird
