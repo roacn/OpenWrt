@@ -12,8 +12,8 @@ luci-app-ramfree
 luci-app-rebootschedule
 luci-app-samba4
 luci-app-smartdns
-luci-app-ssr-plus
 luci-app-ttyd
+luci-app-turboacc
 luci-app-webadmin
 luci-app-wolplus
 luci-theme-argon
