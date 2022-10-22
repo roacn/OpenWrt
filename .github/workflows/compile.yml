@@ -50,7 +50,7 @@ jobs:
 
     steps:
     - name: 准备结束
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: 读取脚本
       run: |
@@ -280,12 +280,12 @@ jobs:
         cd openwrt
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 V=s
-        echo "::set-output name=status::success"
+        echo "COMPILESTATUS=success" >> $GITHUB_ENV
         echo "date=$(date "+%Y%m%d%H%M%S")" >> $GITHUB_ENV
         echo "date1=$(date +'%m-%d')" >> $GITHUB_ENV
         
     - name: 上传bin文件夹(固件+ipk)至actions
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      if: env.COMPILESTATUS == 'success' && env.UPLOAD_BIN_DIR == 'true'
       uses: actions/upload-artifact@v3
       with:
         name: firmware+ipk_${{ env.CODE }}_${{ env.TARGET_PROFILE }}_${{ env.Compile_Date }}
@@ -293,7 +293,7 @@ jobs:
         
     - name: 打包固件(amlogic系列专用)
       continue-on-error: true
-      if: steps.compile.outputs.status == 'success' && env.AUTOMATIC_AMLOGIC == 'true'
+      if: env.COMPILESTATUS == 'success' && env.AUTOMATIC_AMLOGIC == 'true'
       run: |
         cd $GITHUB_WORKSPACE
         git clone --depth 1 https://github.com/ophub/amlogic-s9xxx-openwrt.git amlogic
@@ -327,11 +327,11 @@ jobs:
         test ${{ env.UNLOCK }} && rename -v "s/^openwrt/Unlock-${{ env.PATCHVER }}-${{ env.OpenWrt_name }}-${{ env.CODE }}/" * || rename -v "s/^openwrt/${{ env.PATCHVER }}-${{ env.OpenWrt_name }}-${{ env.CODE }}/" *
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         source "${PATH1}/common.sh" && Diy_release
-        echo "::set-output name=status::success"
+        echo "ORGANIZERSTATUS=success" >> $GITHUB_ENV
         
     - name: 上传固件至actions
       continue-on-error: true
-      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
+      if: env.ORGANIZERSTATUS == 'success' && env.UPLOAD_FIRMWARE == 'true'
       uses: actions/upload-artifact@v3
       with:
         name: ${{ env.PATCHVER }}-${{ env.OpenWrt_name }}-${{ env.CODE }}-${{ env.TARGET_PROFILE }}-firmware-${{ env.Compile_Date }}
@@ -339,7 +339,7 @@ jobs:
         
     - name: 发布固件
       continue-on-error: true
-      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && env.REPO_TOKEN
+      if: env.ORGANIZERSTATUS == 'success' && env.UPLOAD_RELEASE == 'true' && env.REPO_TOKEN
       uses: ncipollo/release-action@v1
       with:
         name: ${{ env.CODE }}-${{ env.TARGET_PROFILE }}
@@ -349,13 +349,13 @@ jobs:
         artifacts: "${{ env.FIRMWARE }}/*"
         
     - name: 发送[在线更新固件]至release1
-      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
+      if: env.COMPILESTATUS == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       run: |
         cd openwrt
         source "${PATH1}/upgrade.sh" && Diy_Part3
         
     - name: 发送[在线更新固件]至release2
-      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
+      if: env.COMPILESTATUS == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       uses: ncipollo/release-action@v1
       with:
         allowUpdates: true
@@ -365,14 +365,14 @@ jobs:
         artifacts: "openwrt/bin/Firmware/*"
         
     - name: 发送[在线更新固件]至release3
-      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
+      if: env.COMPILESTATUS == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       run: |
         mkdir -p Github_Tags
         cd Github_Tags
         wget -q --no-cookie --no-check-certificate https://api.github.com/repos/${{github.repository}}/releases/tags/${{ env.RELEASE_TAG }} -O Github_Tags
         
     - name: 发送[在线更新固件]至release4
-      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
+      if: env.COMPILESTATUS == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.REPO_TOKEN }}
@@ -382,7 +382,7 @@ jobs:
         file_glob: true
 
     - name: 编译完成TG或pushplus通知
-      if: steps.compile.outputs.status == 'success' && env.PUSH_PLUS_TOKEN && env.SERVERCHAN_SCKEY == 'PUSH' || steps.compile.outputs.status == 'success' && env.TELEGRAM_BOT_TOKEN && env.SERVERCHAN_SCKEY == 'TELE'
+      if: env.COMPILESTATUS == 'success' && env.PUSH_PLUS_TOKEN && env.SERVERCHAN_SCKEY == 'PUSH' || env.COMPILESTATUS == 'success' && env.TELEGRAM_BOT_TOKEN && env.SERVERCHAN_SCKEY == 'TELE'
       run: |
         if [[ "${SERVERCHAN_SCKEY}" == "TELE" ]]; then
           curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨：您使用【${{env.CangKu}}】仓库【${{matrix.target}}】文件夹编译的[${{ env.CODE }}-${{ env.TARGET_PROFILE }}]固件顺利编译完成了！💐https://github.com/${{github.repository}}/releases" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
@@ -411,7 +411,7 @@ jobs:
     
     - name: 删除releases
       if: env.REPO_TOKEN
-      uses: dev-drprasad/delete-older-releases@master
+      uses: roacn/delete-older-releases@master
       with:
         repo: ${{ github.repository }}
         keep_latest: ${{ env.keep_latest }}

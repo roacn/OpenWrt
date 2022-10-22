@@ -176,7 +176,7 @@ jobs:
         make defconfig > /dev/null 2>&1
         ./scripts/diffconfig.sh > ${GITHUB_WORKSPACE}/${CONFIG_FILE}
         cp -rf ${GITHUB_WORKSPACE}/${CONFIG_FILE} ${GITHUB_WORKSPACE}/config.txt
-        echo "::set-output name=status::success"
+        echo "COMPILESTATUS=success" >> $GITHUB_ENV
         echo "TARGET_BOARD=$(awk -F '[="]+' '/TARGET_BOARD/{print $2}' .config)" >> $GITHUB_ENV
         echo "TARGET_SUBTARGET=$(awk -F '[="]+' '/TARGET_SUBTARGET/{print $2}' .config)" >> $GITHUB_ENV
         echo "Compile_Date=$(date +%Y%m%d-%H%M)" >> $GITHUB_ENV
@@ -280,7 +280,7 @@ jobs:
     
     - name: 删除releases
       if: env.REPO_TOKEN
-      uses: dev-drprasad/delete-older-releases@master
+      uses: roacn/delete-older-releases@master
       with:
         repo: ${{ github.repository }}
         keep_latest: ${{ env.keep_latest }}
