@@ -374,7 +374,7 @@ jobs:
         
     - name: 发送[在线更新固件]至release4
       if: env.COMPILESTATUS == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
-      uses: svenstaro/upload-release-action@v2
+      uses: roacn/upload-release-action@master
       with:
         repo_token: ${{ secrets.REPO_TOKEN }}
         file: Github_Tags/*
