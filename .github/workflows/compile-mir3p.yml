@@ -21,7 +21,7 @@ on:
         required: true
         default: '6'
   schedule:
-   - cron: 0 5 * * 5
+   - cron: 0 10 * * 5
 env:
   Github: https://github.com/${{github.repository}}
   Author: ${{github.actor}}
