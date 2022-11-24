@@ -12,7 +12,7 @@ on:
       ssh:
         description: '[ssh-actions]改成[ssh],再按[Run workflow]按钮启动,则开启SSH连接配置固件'
         required: false
-        default: 'ssh-actions'
+        default: 'ssh'
       days:
         description: '清理[X]天之前的Actions空间操作记录(可改)'
         required: true
