@@ -119,7 +119,7 @@ jobs:
       run: |
         sudo -E apt-get -qq update -y
         sudo -E apt-get -qq full-upgrade -y
-        sudo -E apt-get -qq install -y subversion build-essential libncurses5-dev openssl lib32gcc1 libssl-dev zlib1g-dev gawk git ccache gettext xsltproc zip git-core wget curl grep > /dev/null 2>&1
+        sudo -E apt-get -qq install -y subversion build-essential libncurses5-dev openssl libssl-dev zlib1g-dev gawk git ccache gettext xsltproc zip git-core wget curl grep > /dev/null 2>&1
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
