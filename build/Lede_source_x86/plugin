@@ -5,14 +5,15 @@ luci-app-autoupdate
 luci-app-diskman
 luci-app-filetransfer
 luci-app-firewall
-luci-app-onliner
 luci-app-passwall
 luci-app-pushbot
 luci-app-ramfree
 luci-app-rebootschedule
 luci-app-samba4
 luci-app-smartdns
+luci-app-ssr-plus
 luci-app-ttyd
+luci-app-unblockneteasemusic
 luci-app-webadmin
 luci-app-wolplus
 luci-theme-argon
