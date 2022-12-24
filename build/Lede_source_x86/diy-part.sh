@@ -14,7 +14,7 @@ uci set network.lan.ipaddr='192.168.1.2'                     # IPv4 地址(openw
 uci set network.lan.netmask='255.255.255.0'                  # IPv4 子网掩码
 uci set network.lan.gateway='192.168.1.1'                    # IPv4 网关
 #uci set network.lan.broadcast='192.168.1.255'               # IPv4 广播
-uci set network.lan.dns='192.168.1.2'                        # DNS(多个DNS要用空格分开)
+uci set network.lan.dns='223.5.5.5 114.114.114.114'          # DNS(多个DNS要用空格分开)
 uci set network.lan.delegate='0'                             # 去掉LAN口使用内置的 IPv6 管理
 uci set network.lan.ifname='eth0'                            # 设置lan口物理接口为eth0
 #uci set network.lan.ifname='eth0 eth1'                      # 设置lan口物理接口为eth0、eth1
@@ -28,9 +28,9 @@ uci set dhcp.lan.ignore='1'                                  # 关闭DHCP功能
 uci set dhcp.@dnsmasq[0].filter_aaaa='1'                     # DHCP/DNS→高级设置→解析 IPv6 DNS 记录——禁止
 uci set dhcp.@dnsmasq[0].cachesize='0'                       # DHCP/DNS→高级设置→DNS 查询缓存的大小——设置为'0'
 uci commit dhcp
-uci delete firewall.@defaults[0].syn_flood                   # 防火墙→SYN-flood 防御——关闭；默认开启
-uci set firewall.@defaults[0].fullcone='1'                   # 防火墙→FullCone-NAT——启用；默认关闭
-uci commit firewall
+#uci delete firewall.@defaults[0].syn_flood                   # 防火墙→SYN-flood 防御——关闭；默认开启
+#uci set firewall.@defaults[0].fullcone='1'                   # 防火墙→FullCone-NAT——启用；默认关闭
+#uci commit firewall
 uci set dropbear.@dropbear[0].Port='8822'                    # SSH端口设置为'8822'
 uci commit dropbear
 uci set system.@system[0].hostname='OpenWrt'                 # 修改主机名称为OpenWrt
