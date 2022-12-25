@@ -3,7 +3,7 @@ config samba
 	option workgroup 'WORKGROUP'
 	option charset 'UTF-8'
 	option description 'Samba on OpenWRT'
-	option name 'OpenWrtX'
+	option name 'OpenWrt'
 	option homes '0'
 	option macos '0'
 
