@@ -14,7 +14,7 @@ uci set network.lan.ipaddr='192.168.1.2'                     # IPv4 地址(openw
 uci set network.lan.netmask='255.255.255.0'                  # IPv4 子网掩码
 uci set network.lan.gateway='192.168.1.1'                    # IPv4 网关
 #uci set network.lan.broadcast='192.168.1.255'               # IPv4 广播
-uci set network.lan.dns='192.168.1.2'                        # DNS(多个DNS要用空格分开)
+uci set network.lan.dns='223.5.5.5 114.114.114.114'          # DNS(多个DNS要用空格分开)
 uci set network.lan.delegate='0'                             # 去掉LAN口使用内置的 IPv6 管理
 uci set network.lan.ifname='eth0'                            # 设置lan口物理接口为eth0
 #uci set network.lan.ifname='eth0 eth1'                      # 设置lan口物理接口为eth0、eth1
@@ -27,19 +27,19 @@ uci delete dhcp.lan.dhcpv6                                   # DHCPv6 服务，�
 uci set dhcp.lan.ignore='1'                                  # 关闭DHCP功能
 uci set dhcp.@dnsmasq[0].filter_aaaa='1'                     # DHCP/DNS→高级设置→解析 IPv6 DNS 记录——禁止
 uci set dhcp.@dnsmasq[0].cachesize='0'                       # DHCP/DNS→高级设置→DNS 查询缓存的大小——设置为'0'
-uci add dhcp domain
-uci set dhcp.@domain[0].name='openwrt'                       # 网络→主机名→主机目录——“openwrt”
-uci set dhcp.@domain[0].ip='192.168.1.2'                     # 对应IP解析——192.168.1.2
-uci add dhcp domain
-uci set dhcp.@domain[1].name='cdn.jsdelivr.net'              # 网络→主机名→主机目录——“cdn.jsdelivr.net”
-uci set dhcp.@domain[1].ip='104.16.86.20'                    # 对应IP解析——'104.16.86.20'
-uci add dhcp domain
-uci set dhcp.@domain[2].name='raw.githubusercontent.com'     # 网络→主机名→主机目录——“raw.githubusercontent.com”
-uci set dhcp.@domain[2].ip='185.199.109.133'                 # 对应IP解析——'185.199.109.133'
+#uci add dhcp domain
+#uci set dhcp.@domain[0].name='openwrt'                       # 网络→主机名→主机目录——“openwrt”
+#uci set dhcp.@domain[0].ip='192.168.1.2'                     # 对应IP解析——192.168.1.2
+#uci add dhcp domain
+#uci set dhcp.@domain[1].name='cdn.jsdelivr.net'              # 网络→主机名→主机目录——“cdn.jsdelivr.net”
+#uci set dhcp.@domain[1].ip='104.16.86.20'                    # 对应IP解析——'104.16.86.20'
+#uci add dhcp domain
+#uci set dhcp.@domain[2].name='raw.githubusercontent.com'     # 网络→主机名→主机目录——“raw.githubusercontent.com”
+#uci set dhcp.@domain[2].ip='185.199.109.133'                 # 对应IP解析——'185.199.109.133'
 uci commit dhcp
-uci delete firewall.@defaults[0].syn_flood                   # 防火墙→SYN-flood 防御——关闭；默认开启
-uci set firewall.@defaults[0].fullcone='1'                   # 防火墙→FullCone-NAT——启用；默认关闭
-uci commit firewall
+#uci delete firewall.@defaults[0].syn_flood                   # 防火墙→SYN-flood 防御——关闭；默认开启
+#uci set firewall.@defaults[0].fullcone='1'                   # 防火墙→FullCone-NAT——启用；默认关闭
+#uci commit firewall
 uci set dropbear.@dropbear[0].Port='8822'                    # SSH端口设置为'8822'
 uci commit dropbear
 uci set system.@system[0].hostname='OpenWrt'                 # 修改主机名称为OpenWrt
