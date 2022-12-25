@@ -5,7 +5,7 @@ luci-app-diskman
 luci-app-filetransfer
 luci-app-firewall
 luci-app-passwall
-luci-app-serverchan
+luci-app-pushbot
 luci-app-smartdns
 luci-app-ssr-plus
 luci-app-ttyd
@@ -16,5 +16,3 @@ luci-app-zerotier
 luci-theme-argon
 luci-theme-bootstrap
 luci-theme-material
-luci-theme-neobird
-luci-theme-netgear
