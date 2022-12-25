@@ -3,7 +3,7 @@ config smartdns
 	option enabled '0'
 	option port '6053'
 	option coredump '0'
-	option seconddns_server_group 'passwall'
+	option seconddns_server_group 'oversea'
 	option seconddns_no_speed_check '1'
 	option seconddns_no_dualstack_selection '1'
 	option prefetch_domain '1'
