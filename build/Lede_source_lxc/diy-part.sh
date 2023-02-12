@@ -67,9 +67,9 @@ sed -i '/CYXluq4wUazHjmCDBCqXF/d' $ZZZ
 #############################################pushd#############################################
 pushd feeds
 
-rm -rf  ./packages/net/mosdns
+#rm -rf  ./packages/net/mosdns
 
-cd ./luci
+#cd ./luci
 
 #cd applications
 #echo "添加插件 luci-app-passwall"
@@ -84,7 +84,7 @@ cd ./luci
 #rm -rf ./luci-theme-neobird
 #git clone https://github.com/thinktip/luci-theme-neobird.git
 
-cd ..
+#cd ..
 popd
 #############################################popd#############################################
 
