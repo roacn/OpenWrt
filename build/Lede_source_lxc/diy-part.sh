@@ -65,13 +65,13 @@ sed -i '/CYXluq4wUazHjmCDBCqXF/d' $ZZZ
 #sed -i 's/PATCHVER:=5.10/PATCHVER:=5.15/g' target/linux/x86/Makefile
 
 #############################################pushd#############################################
-pushd package
+pushd feeds
 
-rm -rf ./net/mosdns
+cd ./packages/net
+rm -rf ./mosdns
+cd ../..
 
-popd
-
-pushd feeds/luci
+cd ./luci
 
 #cd applications
 #echo "添加插件 luci-app-passwall"
@@ -87,6 +87,7 @@ pushd feeds/luci
 #rm -rf ./luci-theme-neobird
 #git clone https://github.com/thinktip/luci-theme-neobird.git
 
+cd ..
 popd
 #############################################popd#############################################
 
