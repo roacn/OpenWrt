@@ -65,6 +65,12 @@ sed -i '/CYXluq4wUazHjmCDBCqXF/d' $ZZZ
 #sed -i 's/PATCHVER:=5.10/PATCHVER:=5.15/g' target/linux/x86/Makefile
 
 #############################################pushd#############################################
+pushd package
+
+rm -rf ./net/mosdns
+
+popd
+
 pushd feeds/luci
 
 #cd applications
