@@ -79,7 +79,6 @@ cd ./luci
 
 #echo "添加插件 luci-app-ssr-plus"
 #git clone --depth=1 https://github.com/fw876/helloworld luci-app-ssr-plus
-#cd ../themes
 
 #cd themes
 
