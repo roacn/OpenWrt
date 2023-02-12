@@ -67,9 +67,7 @@ sed -i '/CYXluq4wUazHjmCDBCqXF/d' $ZZZ
 #############################################pushd#############################################
 pushd feeds
 
-cd ./packages/net
-rm -rf ./mosdns
-cd ../..
+rm -rf  ./packages/net/mosdns
 
 cd ./luci
 
