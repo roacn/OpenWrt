@@ -13,7 +13,12 @@ on:
         default: 'true'
       tag_name:
         description: 'TAG名称'
-        default: 'AutoUpdate'        
+        required: true
+        default: 'AutoUpdate-lxc'
+        type: choice
+        options:
+          - 'AutoUpdate-lxc'
+          - 'AutoUpdate'    
 
 jobs:
   Job:
