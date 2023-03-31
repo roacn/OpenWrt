@@ -1,6 +1,6 @@
 --- a/package/lean/autocore/files/x86/autocore
 +++ b/package/lean/autocore/files/x86/autocore
-@@ -28,7 +28,7 @@ start()
+@@ -28,7 +28,7 @@
  	d=$(echo -n 'C')
  	e=$(cat /proc/cpuinfo | grep 'processor' | wc -l)
  	f=$(echo -n 'T ')
@@ -9,7 +9,7 @@
  	
  	if [ -d /sys/devices/cpu_atom/ ]; then
      pcore=$(cat /sys/devices/cpu_core/cpus | awk -F- '{print $2}') 
-@@ -42,7 +42,7 @@ start()
+@@ -42,7 +42,7 @@
  	h=${g}' - '${a}${b}${c}${d}${e}${f}${hydrid}
  
  	mkdir -p /tmp/sysinfo
@@ -18,4 +18,3 @@
  
  	a=$(ip address | grep ^[0-9] | awk -F: '{print $2}' | sed "s/ //g" | grep '^[e]' | grep -v "@" | grep -v "\.")
  	b=$(echo "$a" | wc -l)
-	
