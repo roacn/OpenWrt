@@ -1,13 +1,16 @@
-index 2ad0a2e..614e217 100644
 --- a/package/lean/autocore/files/x86/autocore
 +++ b/package/lean/autocore/files/x86/autocore
-@@ -28,11 +28,10 @@ start()
- 	d=$(echo -n ' Core ')
+@@ -28,7 +28,7 @@ start()
+ 	d=$(echo -n 'C')
  	e=$(cat /proc/cpuinfo | grep 'processor' | wc -l)
- 	f=$(echo -n ' Thread ')
--	g=$(cat /tmp/sysinfo/model)
--	h=${g}' - '${a}${b}${c}${d}${e}${f}
+ 	f=$(echo -n 'T ')
+-	g=$(dmesg | grep 'DMI:' | awk -F ',' '{print $1 }' | awk -F ':' '{print $2 }')
 +	g=${a}${b}${c}${d}${e}${f}
+ 	
+ 	if [ -d /sys/devices/cpu_atom/ ]; then
+     pcore=$(cat /sys/devices/cpu_core/cpus | awk -F- '{print $2}') 
+@@ -42,7 +42,7 @@ start()
+ 	h=${g}' - '${a}${b}${c}${d}${e}${f}${hydrid}
  
  	mkdir -p /tmp/sysinfo
 -	echo $h > /tmp/sysinfo/model
@@ -15,3 +18,4 @@ index 2ad0a2e..614e217 100644
  
  	a=$(ip address | grep ^[0-9] | awk -F: '{print $2}' | sed "s/ //g" | grep '^[e]' | grep -v "@" | grep -v "\.")
  	b=$(echo "$a" | wc -l)
+	
