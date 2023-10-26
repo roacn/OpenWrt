@@ -1,0 +1,62 @@
+#=======================================================================================================================
+# Description: Delete older releases and artifacts
+#=======================================================================================================================
+
+name: 删除releases与workflows
+
+on:
+  workflow_dispatch:
+    inputs:
+      DELETE_ARTIFACTS:
+        description: '删除Workflow开关'
+        required: true
+        default: 'true'
+        type: boolean
+      KEEP_DAY:
+        description: 'Workflow保留天数'
+        required: true
+        default: '1'
+        type: string
+      KEEP_MININUM_RUNS:
+        description: 'Workflow最少保留数量'
+        required: true
+        default: '0'
+        type: string
+      DELETE_RELEASE:
+        description: '删除Release开关'
+        required: true
+        default: 'true'
+        type: boolean
+      KEEP_MININUM_RELEASE:
+        description: 'Release最少保留数量'
+        required: true
+        default: '7'
+        type: string
+        
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+      
+    - name: Delete older workflow runs and artifacts
+      uses: Mattraks/delete-workflow-runs@main
+      if: github.event.inputs.DELETE_ARTIFACTS == 'true'
+      with:
+        token: ${{ secrets.REPO_TOKEN }}
+        repository: ${{ github.repository }}
+        retain_days: ${{ github.event.inputs.KEEP_DAY }}
+        keep_minimum_runs: ${{ github.event.inputs.KEEP_MININUM_RUNS }}
+        
+    - name: Delete older releases
+      uses: dev-drprasad/delete-older-releases@master
+      if: github.event.inputs.DELETE_RELEASE == 'true'
+      with:
+        keep_latest: ${{ github.event.inputs.KEEP_MININUM_RELEASE }}
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+        
