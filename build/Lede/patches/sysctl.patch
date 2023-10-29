@@ -1,0 +1,17 @@
+--- a/package/base-files/files/etc/sysctl.conf
++++ b/package/base-files/files/etc/sysctl.conf
+@@ -1 +1,14 @@
+ # Defaults are configured in /etc/sysctl.d/* and can be customized in this file
++# net.netfilter.nf_conntrack_buckets = 65536   # 
++# net.netfilter.nf_conntrack_max = 262144       # max与buckets是4:1关系
++# net.ipv4.tcp_fastopen = 1                               # 1作为客户端开启，2作为服务端开启，3=1+2
++net.netfilter.nf_conntrack_tcp_timeout_close = 5
++net.netfilter.nf_conntrack_tcp_timeout_close_wait = 10
++net.netfilter.nf_conntrack_tcp_timeout_established = 1800
++net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 10
++net.netfilter.nf_conntrack_tcp_timeout_last_ack = 10
++net.netfilter.nf_conntrack_tcp_timeout_syn_recv = 5
++net.netfilter.nf_conntrack_tcp_timeout_syn_sent = 5
++net.netfilter.nf_conntrack_tcp_timeout_time_wait = 10
++net.netfilter.nf_conntrack_udp_timeout = 10
++net.netfilter.nf_conntrack_udp_timeout_stream = 60

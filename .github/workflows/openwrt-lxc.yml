@@ -1,0 +1,232 @@
+#=================================================
+# https://github.com/roacn/build-actions
+# Description: Build OpenWrt using GitHub Actions
+# Lisence: GNU General Public License v3.0
+# Author: Ss.
+#=================================================
+
+
+name: 启动Openwrt_lxc编译
+on:
+  workflow_dispatch:
+    inputs:
+      # 下拉列表设置为default，则相应选项使用settings.ini内设置
+      # 需要更改，直接在下拉列表选择
+      SOURCE_BRANCH:
+        description: 'Openwrt分支;default使用settings.ini设置'
+        required: true
+        default: 'default'
+        type: choice
+        options:
+          - 'default'
+          - 'main'
+          - 'master'
+          - 'openwrt-23.05'
+          - 'openwrt-22.03'
+          - 'openwrt-21.02'
+          - 'openwrt-19.07'
+      CONFIG_FILE:
+        description: '配置文件'
+        required: true
+        default: 'default'
+        type: choice
+        options:
+          - 'default'
+          - 'x86_64'
+          - 'x86_32'
+          - '.config'
+      FIRMWARE_TYPE:
+        description: '固件类型'
+        required: true
+        default: 'default'
+        type: choice
+        options:
+          - 'default'
+          - 'lxc'
+          - 'kvm'
+      BIOS_MODE:
+        description: '固件引导模式'
+        required: true
+        default: 'default'
+        type: choice
+        options:
+          - 'default'
+          - 'uefi'
+          - 'legacy'
+          - 'both'
+      ENABLE_CCACHE:
+        description: '缓存加速'
+        required: true
+        default: 'default'
+        type: choice
+        options:
+          - 'default'
+          - 'fast'
+          - 'normal'
+          - 'false'
+      NOTICE_TYPE:
+        description: 'Telegram或pushplus信息通知'
+        required: true
+        default: 'default'
+        type: choice
+        options:
+          - 'default'
+          - 'Telegram'
+          - 'Pushplus'
+          - 'false'
+      ENABLE_SSH:
+        description: '开启SSH远程配置'
+        required: false
+        default: 'false'
+        type: boolean
+      UPLOAD_RELEASE:
+        description: '发布固件到 Github Releases'
+        required: false
+        default: 'false'
+        type: boolean
+      UPLOAD_FIRMWARE:
+        description: '上传固件到 Github Artifacts'
+        required: false
+        default: 'true'
+        type: boolean
+      UPLOAD_CONFIG:
+        description: '上传.config到 Github Artifacts'
+        required: false
+        default: 'true'
+        type: boolean
+        
+# 定时触发开启开始编译(把下面两个#去掉开启,时间设置请看定时开启编译说明)
+  #schedule:
+   #- cron: 30 5 * * 3,5
+
+
+env:
+  GITHUB_REPOSITORY_URL: https://github.com/${{github.repository}}
+  GITHUB_REPOSITORY: ${{github.repository}}
+  GITHUB_REPOSITORY_REFNAME: ${{github.ref_name}}
+  GITHUB_REPOSITORY_REF: ${{github.ref}}
+  GITHUB_ACTOR: ${{github.actor}}
+  GITHUB_WORKFLOW: ${{github.workflow}}
+  REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    name: 编译 "${{matrix.target}}"
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
+    env:
+      MATRIX_TARGET: ${{matrix.target}}
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [Openwrt_lxc]
+        
+        # [Lede,Lede_lxc,Openwrt,Openwrt_lxc]
+        # 对应build目录下的编译文件夹
+        
+    steps:
+    - name: 准备结束
+      uses: actions/checkout@v4
+
+    - name: 获取设置
+      run: |
+        cd ${GITHUB_WORKSPACE}
+        export INPUTS_SOURCE_BRANCH="${{ github.event.inputs.SOURCE_BRANCH }}"
+        export INPUTS_CONFIG_FILE="${{ github.event.inputs.CONFIG_FILE }}"
+        export INPUTS_FIRMWARE_TYPE="${{ github.event.inputs.FIRMWARE_TYPE }}"
+        export INPUTS_BIOS_MODE="${{ github.event.inputs.BIOS_MODE }}"        
+        export INPUTS_NOTICE_TYPE="${{ github.event.inputs.NOTICE_TYPE }}"
+        export INPUTS_ENABLE_SSH="${{ github.event.inputs.ENABLE_SSH }}"
+        export INPUTS_UPLOAD_RELEASE="${{ github.event.inputs.UPLOAD_RELEASE }}"
+        export INPUTS_UPLOAD_FIRMWARE="${{ github.event.inputs.UPLOAD_FIRMWARE }}"
+        export INPUTS_UPLOAD_CONFIG="${{ github.event.inputs.UPLOAD_CONFIG }}"
+        export INPUTS_ENABLE_CCACHE="${{ github.event.inputs.ENABLE_CCACHE }}"
+        
+        common_sh_url="https://raw.githubusercontent.com/roacn/common/main/common.sh"
+        curl -fsSL ${common_sh_url} -o ${GITHUB_WORKSPACE}/common.sh
+        if [[ $? -ne 0 ]]; then
+            wget -q ${common_sh_url} -O ${GITHUB_WORKSPACE}/common.sh
+        fi
+        chmod +x ${GITHUB_WORKSPACE}/common.sh
+        source ${GITHUB_WORKSPACE}/common.sh && parse_settings
+
+    - name: 部署编译环境
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        source ${GITHUB_WORKSPACE}/common.sh && init_environment
+        
+    - name: 下载"${{matrix.target}}"源码
+      working-directory: /${{matrix.target}}
+      run: |
+        source ${GITHUB_WORKSPACE}/common.sh && git_clone_source
+
+    - name: 更新源,补丁和自定义设置
+      if: env.REPO_TOKEN
+      run: |
+        source ${GITHUB_WORKSPACE}/common.sh && do_diy
+      
+    - name: SSH远程连接（make menuconfig）
+      if: env.ENABLE_SSH == 'true'
+      uses: danshui-git/debugger-action@main
+      
+    - name: 生成"${{matrix.target}}"配置文件
+      if: env.REPO_TOKEN
+      id: makedeconfig
+      run: |
+        source ${GITHUB_WORKSPACE}/common.sh && make_defconfig
+
+    - name: 上传.config配置文件至artifacts
+      if: steps.makedeconfig.outcome == 'success' && env.UPLOAD_CONFIG == 'true'
+      uses: actions/upload-artifact@v3
+      with:
+        name: .config_${{ env.SOURCE }}_${{ env.TARGET_PROFILE }}_${{ env.COMPILE_DATE_HM }}
+        path: ${{ env.DIFFCONFIG_TXT }}
+
+    - name: 编译信息
+      continue-on-error: true
+      run: |
+        source ${GITHUB_WORKSPACE}/common.sh && compile_info
+
+    - name: 更新REPO
+      continue-on-error: true
+      if: env.REPO_TOKEN
+      run: |
+        source ${GITHUB_WORKSPACE}/common.sh && update_repo
+        
+    - name: 启动"${{matrix.target}}"编译
+      continue-on-error: true
+      run: |
+        curl \
+        -X POST https://api.github.com/repos/${{ github.repository }}/dispatches \
+        -H "Accept: application/vnd.github.everest-preview+json" \
+        -H "Authorization: token ${{ secrets.REPO_TOKEN }}" \
+        -d '{"event_type": "编译${{ env.MATRIX_TARGET }}固件", "client_payload": {"target": "${{ env.MATRIX_TARGET }}"}}'
+        
+  delete-releases-artifacts:
+    needs: [build]
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:        
+    - name: 清理Actions空间
+      if: env.REPO_TOKEN
+      uses: Mattraks/delete-workflow-runs@v2
+      with:
+          token: ${{ secrets.REPO_TOKEN }}
+          repository: ${{ github.repository }}
+          keep_minimum_runs: 0
+          retain_days: 7
+    
+    - name: 删除releases
+      if: env.REPO_TOKEN
+      uses: roacn/delete-older-releases@master
+      with:
+        repo: ${{ github.repository }}
+        keep_latest: 7
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}

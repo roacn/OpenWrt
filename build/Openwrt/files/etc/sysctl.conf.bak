@@ -1,0 +1,12 @@
+# Defaults are configured in /etc/sysctl.d/* and can be customized in this file
+# net.netfilter.nf_conntrack_buckets = 65536      # 
+# net.netfilter.nf_conntrack_max = 262144          # max与buckets是4:1关系
+# net.ipv4.tcp_fastopen = 1                                  # 1作为客户端开启，2作为服务端开启，3=1+2
+# net.ipv4.conf.all.rp_filter = 0                              # 反向路由校验，默认为2；0，关闭；1，开启严格的反向路由校验；2，开启松散的反向路由校验。
+# net.ipv4.conf.default.rp_filter = 0                      # 关闭必须同时关闭才有效，开启时开启任一即全开。
+net.netfilter.nf_conntrack_udp_timeout = 30
+net.netfilter.nf_conntrack_udp_timeout_stream = 120
+net.netfilter.nf_conntrack_tcp_timeout_close_wait = 15
+net.netfilter.nf_conntrack_tcp_timeout_established = 300
+net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 30
+net.netfilter.nf_conntrack_tcp_timeout_time_wait = 30
