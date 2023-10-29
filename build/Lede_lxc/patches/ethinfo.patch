@@ -1,9 +1,0 @@
---- a/package/lean/autocore/files/x86/sbin/ethinfo
-+++ b/package/lean/autocore/files/x86/sbin/ethinfo
-@@ -1,6 +1,6 @@
- #!/bin/sh
- 
--a=$(ip address | grep ^[0-9] | awk -F: '{print $2}' | sed "s/ //g" | grep '^[e]' | grep -v "@" | grep -v "\.")
-+a=$(ip address | grep ^[0-9] | awk -F: '{print $2}' | sed "s/ //g" | grep '^[e]' | awk -F@ '{print $1}')
- b=$(echo "$a" | wc -l)
- rm -f /tmp/state/ethinfo
