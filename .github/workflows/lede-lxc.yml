@@ -124,7 +124,7 @@ jobs:
         # 对应build目录下的编译文件夹
         
     steps:
-    - name: 准备结束
+    - name: 准备工作
       uses: actions/checkout@v4
 
     - name: 获取设置
