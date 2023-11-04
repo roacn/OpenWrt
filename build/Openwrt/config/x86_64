@@ -202,8 +202,6 @@ CONFIG_SING_BOX_WITH_UTLS=y
 CONFIG_SING_BOX_WITH_WIREGUARD=y
 # CONFIG_TARGET_ROOTFS_EXT4FS is not set
 CONFIG_TARGET_ROOTFS_PARTSIZE=800
-# CONFIG_UnblockNeteaseMusic_Go is not set
-# CONFIG_UnblockNeteaseMusic_NodeJS is not set
 CONFIG_WOLFSSL_HAS_NO_HW=y
 CONFIG_boost-compile-visibility-hidden=y
 CONFIG_boost-runtime-shared=y
