@@ -110,7 +110,7 @@ env:
 
 jobs:
   build:
-    name: 编译 "${{matrix.target}}"
+    name: Build ${{matrix.target}}
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
     env:
@@ -209,6 +209,7 @@ jobs:
         -d '{"event_type": "编译${{ env.MATRIX_TARGET }}固件", "client_payload": {"target": "${{ env.MATRIX_TARGET }}"}}'
         
   delete-releases-artifacts:
+    name: Delete releases artifacts
     needs: [build]
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
