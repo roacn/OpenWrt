@@ -217,7 +217,7 @@ jobs:
     name: Delete releases artifacts
     needs: [build]
     runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id
+    if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
     steps:        
     - name: 清理Actions空间
       if: env.REPO_TOKEN
