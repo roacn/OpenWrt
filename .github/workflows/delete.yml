@@ -10,7 +10,7 @@ on:
       DELETE_ARTIFACTS:
         description: '删除Workflow开关'
         required: true
-        default: 'true'
+        default: true
         type: boolean
       KEEP_DAY:
         description: 'Workflow保留天数'
@@ -25,7 +25,7 @@ on:
       DELETE_RELEASE:
         description: '删除Release开关'
         required: true
-        default: 'true'
+        default: true
         type: boolean
       KEEP_MININUM_RELEASE:
         description: 'Release最少保留数量'

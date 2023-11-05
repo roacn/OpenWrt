@@ -72,22 +72,22 @@ on:
       ENABLE_SSH:
         description: '开启SSH远程配置'
         required: false
-        default: 'false'
+        default: false
         type: boolean
       UPLOAD_RELEASE:
         description: '发布固件到 Github Releases'
         required: false
-        default: 'false'
+        default: false
         type: boolean
       UPLOAD_FIRMWARE:
         description: '上传固件到 Github Artifacts'
         required: false
-        default: 'true'
+        default: true
         type: boolean
       UPLOAD_CONFIG:
         description: '上传.config到 Github Artifacts'
         required: false
-        default: 'true'
+        default: true
         type: boolean
         
 # 定时触发开启开始编译(把下面两个#去掉开启,时间设置请看定时开启编译说明)
