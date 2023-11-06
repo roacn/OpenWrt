@@ -4,14 +4,15 @@ echo "--------------diy_part_sh start--------------"
 echo
 cd ${HOME_PATH}
 
-echo "修改IP设置，固件首次运行一次性脚本"
+##########################################修改设置###################################################
+# 修改IP设置，固件首次运行一次性脚本
 cat >> ${FILE_DEFAULT_UCI} <<-EOF
 #uci delete network.wan                                         # 删除wan口
 #uci delete network.wan6                                        # 删除wan6口
 #uci delete network.lan.type                                    # 关闭桥接选项(同下步互斥)
 #uci set network.lan.type='bridge'                              # lan口桥接(单LAN口无需桥接，多LAN口必须桥接，同上步互斥)
 #uci set network.lan.ifname='eth0 eth1'                         # 设置lan口物理接口为eth0、eth1
-uci set network.lan.ifname='eth0'                               # 设置lan口物理接口为eth0
+#uci set network.lan.ifname='eth0'                              # 设置lan口物理接口为eth0
 uci set network.lan.proto='static'                              # lan口静态IP
 uci set network.lan.ipaddr='192.168.1.2'                        # IPv4 地址(openwrt后台地址)
 uci set network.lan.netmask='255.255.255.0'                     # IPv4 子网掩码
@@ -66,10 +67,8 @@ fi
 # x86机型,默认内核6.1，修改内核为6.1
 #echo NEW_KERNEL_PATCHVER="6.1" >> ${GITHUB_ENV}
 
-#############################################################################################
-#cd ${HOME_PATH}
-
-#cd ${HOME_PATH}/package
+##########################################添加插件###################################################
+pushd ${HOME_PATH}/package
 
 #echo "添加插件 luci-app-passwall"
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall
@@ -87,13 +86,16 @@ fi
 #echo "添加主题 new theme neobird"
 #git clone https://github.com/thinktip/luci-theme-neobird.git
 
-#cd ${HOME_PATH}
-#############################################################################################
+popd
+##########################################修改插件名字###################################################
+pushd ${HOME_PATH}/feeds
 
-#echo "修改插件名字"
+# 修改feeds目录下插件名字
 #sed -i 's/"Argon 主题设置"/"Argon设置"/g' `grep "Argon 主题设置" -rl ./`
 #sed -i 's/"Turbo ACC 网络加速"/"Turbo ACC"/g' `grep "Turbo ACC 网络加速" -rl ./`
 
+popd
+##########################################删除文件###################################################
 # 在线更新删除不想保留固件的某个文件，在EOF跟EOF直接加入删除代码，比如： rm /etc/config/luci，rm /etc/opkg/distfeeds.conf
 #cat >> ${FILES_TO_DELETE} <<-EOF
 #rm -rf /etc/coremark.sh
