@@ -1,5 +1,14 @@
 --- a/package/lean/autocore/files/x86/autocore
 +++ b/package/lean/autocore/files/x86/autocore
+@@ -8,7 +8,7 @@ start()
+ 	rfc=4096
+ 	cc=$(grep -c processor /proc/cpuinfo)
+ 	rsfe=$(echo $cc*$rfc | bc)
+-	sysctl -w net.core.rps_sock_flow_entries=$rsfe >/dev/null
++	#sysctl -w net.core.rps_sock_flow_entries=$rsfe >/dev/null
+ 	for fileRps in $(ls /sys/class/net/eth*/queues/rx-*/rps_cpus)
+ 	do
+ 		echo $cc > $fileRps
 @@ -28,7 +28,7 @@ start()
  	d=$(echo -n 'C')
  	e=$(cat /proc/cpuinfo | grep 'processor' | wc -l)
