@@ -14,7 +14,7 @@ on:
       # 需要更改，直接在下拉列表选择
       SOURCE_BRANCH:
         description: 'Lede分支;default使用settings.ini设置'
-        required: true
+        required: false
         default: 'default'
         type: choice
         options:
@@ -22,7 +22,7 @@ on:
           - 'master'
       CONFIG_FILE:
         description: '配置文件'
-        required: true
+        required: false
         default: 'default'
         type: choice
         options:
@@ -32,7 +32,7 @@ on:
           - '.config'
       FIRMWARE_TYPE:
         description: '固件类型'
-        required: true
+        required: false
         default: 'default'
         type: choice
         options:
@@ -41,7 +41,7 @@ on:
           - 'kvm'
       BIOS_MODE:
         description: '固件引导模式'
-        required: true
+        required: false
         default: 'default'
         type: choice
         options:
@@ -51,7 +51,7 @@ on:
           - 'both'
       ENABLE_CCACHE:
         description: '缓存加速'
-        required: true
+        required: false
         default: 'default'
         type: choice
         options:
@@ -59,35 +59,37 @@ on:
           - 'fast'
           - 'normal'
           - 'false'
-      NOTICE_TYPE:
-        description: 'Telegram或pushplus信息通知'
-        required: true
+      UPLOAD_CONFIG:
+        description: '上传.config到 Github Artifacts'
+        required: false
         default: 'default'
         type: choice
         options:
           - 'default'
-          - 'Telegram'
-          - 'Pushplus'
+          - 'true'
           - 'false'
-      ENABLE_SSH:
-        description: '开启SSH远程配置'
-        required: false
-        default: false
-        type: boolean
-      UPLOAD_RELEASE:
-        description: '发布固件到 Github Releases'
-        required: false
-        default: false
-        type: boolean
       UPLOAD_FIRMWARE:
         description: '上传固件到 Github Artifacts'
         required: false
-        default: true
-        type: boolean
-      UPLOAD_CONFIG:
-        description: '上传.config到 Github Artifacts'
+        default: 'default'
+        type: choice
+        options:
+          - 'default'
+          - 'true'
+          - 'false'
+      UPLOAD_RELEASE:
+        description: '发布固件到 Github Releases'
         required: false
-        default: true
+        default: 'default'
+        type: choice
+        options:
+          - 'default'
+          - 'true'
+          - 'false'
+      ENABLE_SSH:
+        description: '开启SSH远程配置.config'
+        required: false
+        default: false
         type: boolean
         
 # 定时触发开启开始编译(把下面两个#去掉开启,时间设置请看定时开启编译说明)
@@ -97,11 +99,11 @@ on:
 
 env:
   GITHUB_REPOSITORY_URL: https://github.com/${{github.repository}}
-  GITHUB_REPOSITORY: ${{github.repository}}
-  GITHUB_REPOSITORY_REFNAME: ${{github.ref_name}}
-  GITHUB_REPOSITORY_REF: ${{github.ref}}
-  GITHUB_ACTOR: ${{github.actor}}
-  GITHUB_WORKFLOW: ${{github.workflow}}
+  GITHUB_REPOSITORY: ${{ github.repository }}
+  GITHUB_REPOSITORY_REFNAME: ${{ github.ref_name }}
+  GITHUB_REPOSITORY_REF: ${{ github.ref }}
+  GITHUB_ACTOR: ${{ github.actor }}
+  GITHUB_WORKFLOW: ${{ github.workflow }}
   REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
   TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
   TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -110,11 +112,11 @@ env:
 
 jobs:
   build:
-    name: Build ${{matrix.target}}
+    name: Build ${{ matrix.target }}
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
     env:
-      MATRIX_TARGET: ${{matrix.target}}
+      MATRIX_TARGET: ${{ matrix.target }}
     strategy:
       fail-fast: false
       matrix:
@@ -129,25 +131,24 @@ jobs:
 
     - name: 获取设置
       run: |
-        cd ${GITHUB_WORKSPACE}
-        export INPUTS_SOURCE_BRANCH="${{ github.event.inputs.SOURCE_BRANCH }}"
-        export INPUTS_CONFIG_FILE="${{ github.event.inputs.CONFIG_FILE }}"
-        export INPUTS_FIRMWARE_TYPE="${{ github.event.inputs.FIRMWARE_TYPE }}"
-        export INPUTS_BIOS_MODE="${{ github.event.inputs.BIOS_MODE }}"        
-        export INPUTS_NOTICE_TYPE="${{ github.event.inputs.NOTICE_TYPE }}"
-        export INPUTS_ENABLE_SSH="${{ github.event.inputs.ENABLE_SSH }}"
-        export INPUTS_UPLOAD_RELEASE="${{ github.event.inputs.UPLOAD_RELEASE }}"
-        export INPUTS_UPLOAD_FIRMWARE="${{ github.event.inputs.UPLOAD_FIRMWARE }}"
-        export INPUTS_UPLOAD_CONFIG="${{ github.event.inputs.UPLOAD_CONFIG }}"
-        export INPUTS_ENABLE_CCACHE="${{ github.event.inputs.ENABLE_CCACHE }}"
+        cd $GITHUB_WORKSPACE
+        INPUTS_SOURCE_BRANCH="${{ github.event.inputs.SOURCE_BRANCH }}"
+        INPUTS_CONFIG_FILE="${{ github.event.inputs.CONFIG_FILE }}"
+        INPUTS_FIRMWARE_TYPE="${{ github.event.inputs.FIRMWARE_TYPE }}"
+        INPUTS_BIOS_MODE="${{ github.event.inputs.BIOS_MODE }}"        
+        INPUTS_ENABLE_CCACHE="${{ github.event.inputs.ENABLE_CCACHE }}"
+        INPUTS_UPLOAD_CONFIG="${{ github.event.inputs.UPLOAD_CONFIG }}"
+        INPUTS_UPLOAD_FIRMWARE="${{ github.event.inputs.UPLOAD_FIRMWARE }}"
+        INPUTS_UPLOAD_RELEASE="${{ github.event.inputs.UPLOAD_RELEASE }}"
+        INPUTS_ENABLE_SSH="${{ github.event.inputs.ENABLE_SSH }}"
         
         common_sh_url="https://raw.githubusercontent.com/roacn/common/main/common.sh"
-        curl -fsSL ${common_sh_url} -o ${GITHUB_WORKSPACE}/common.sh
+        curl -fsSL ${common_sh_url} -o $GITHUB_WORKSPACE/common.sh
         if [[ $? -ne 0 ]]; then
-            wget -q ${common_sh_url} -O ${GITHUB_WORKSPACE}/common.sh
+            wget -q ${common_sh_url} -O $GITHUB_WORKSPACE/common.sh
         fi
-        chmod +x ${GITHUB_WORKSPACE}/common.sh
-        source ${GITHUB_WORKSPACE}/common.sh && parse_settings
+        chmod +x $GITHUB_WORKSPACE/common.sh
+        source $GITHUB_WORKSPACE/common.sh && parse_settings
 
     - name: 部署编译环境
       env:
@@ -161,25 +162,25 @@ jobs:
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
         
-    - name: 下载"${{matrix.target}}"源码
-      working-directory: /${{matrix.target}}
+    - name: 下载"${{ matrix.target }}"源码
+      working-directory: /${{ matrix.target }}
       run: |
-        source ${GITHUB_WORKSPACE}/common.sh && git_clone_source
+        source $GITHUB_WORKSPACE/common.sh && git_clone_source
 
     - name: 更新源,补丁和自定义设置
       if: env.REPO_TOKEN
       run: |
-        source ${GITHUB_WORKSPACE}/common.sh && do_diy
+        source $GITHUB_WORKSPACE/common.sh && do_diy
       
     - name: SSH远程连接（make menuconfig）
       if: env.ENABLE_SSH == 'true'
       uses: danshui-git/debugger-action@main
       
-    - name: 生成"${{matrix.target}}"配置文件
+    - name: 生成"${{ matrix.target }}"配置文件
       if: env.REPO_TOKEN
       id: makedeconfig
       run: |
-        source ${GITHUB_WORKSPACE}/common.sh && make_defconfig
+        source $GITHUB_WORKSPACE/common.sh && make_defconfig
 
     - name: 上传.config配置文件至artifacts
       if: steps.makedeconfig.outcome == 'success' && env.UPLOAD_CONFIG == 'true'
@@ -191,15 +192,15 @@ jobs:
     - name: 编译信息
       continue-on-error: true
       run: |
-        source ${GITHUB_WORKSPACE}/common.sh && compile_info
+        source $GITHUB_WORKSPACE/common.sh && compile_info
 
     - name: 更新REPO
       continue-on-error: true
       if: env.REPO_TOKEN
       run: |
-        source ${GITHUB_WORKSPACE}/common.sh && update_repo
+        source $GITHUB_WORKSPACE/common.sh && update_repo
         
-    - name: 启动"${{matrix.target}}"编译
+    - name: 启动"${{ matrix.target }}"编译
       continue-on-error: true
       run: |
         curl \
@@ -223,9 +224,9 @@ jobs:
           keep_minimum_runs: 0
           retain_days: 7
     
-    - name: 删除releases
+    - name: 删除Releases
       if: env.REPO_TOKEN
-      uses: roacn/delete-older-releases@master
+      uses: dev-drprasad/delete-older-releases@master
       with:
         repo: ${{ github.repository }}
         keep_latest: 7

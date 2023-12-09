@@ -33,10 +33,10 @@ on:
           - 'Github_Tags'
 
 env:
-  GITHUB_REPOSITORY_URL: https://github.com/${{github.repository}}
-  GITHUB_REPOSITORY: ${{github.repository}}
-  GITHUB_ACTOR: ${{github.actor}}
-  GITHUB_WORKFLOW: ${{github.workflow}}
+  GITHUB_REPOSITORY_URL: https://github.com/${{ github.repository }}
+  GITHUB_REPOSITORY: ${{ github.repository }}
+  GITHUB_ACTOR: ${{ github.actor }}
+  GITHUB_WORKFLOW: ${{ github.workflow }}
   
 jobs:
   Job:
@@ -52,9 +52,9 @@ jobs:
       run: |
         mkdir -p Github_Api
         cd Github_Api
-        curl -H "Authorization: Bearer ${{ secrets.REPO_TOKEN }}" https://api.github.com/repos/${{github.repository}}/releases/tags/${{ github.event.inputs.RELEASE_TAG }} -o ${{ github.event.inputs.GITHUB_API }}
+        curl -H "Authorization: Bearer ${{ secrets.REPO_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.event.inputs.RELEASE_TAG }} -o ${{ github.event.inputs.GITHUB_API }}
         if [[ $? -ne 0 ]]; then
-            wget -q --no-cookie --no-check-certificate https://api.github.com/repos/${{github.repository}}/releases/tags/${{ github.event.inputs.RELEASE_TAG }} -O ${{ github.event.inputs.GITHUB_API }}
+            wget -q --no-cookie --no-check-certificate https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.event.inputs.RELEASE_TAG }} -O ${{ github.event.inputs.GITHUB_API }}
         fi
                 
     - name: Upload API to Github Release
@@ -71,6 +71,6 @@ jobs:
       uses: Mattraks/delete-workflow-runs@v2
       with:
           token: ${{ secrets.REPO_TOKEN }}
-          repository: ${{github.repository}}
+          repository: ${{ github.repository }}
           keep_minimum_runs: 7
           retain_days: 7

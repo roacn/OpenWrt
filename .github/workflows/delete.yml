@@ -15,7 +15,7 @@ on:
       KEEP_DAY:
         description: 'Workflow保留天数'
         required: true
-        default: '1'
+        default: '0'
         type: string
       KEEP_MININUM_RUNS:
         description: 'Workflow最少保留数量'
@@ -55,6 +55,7 @@ jobs:
       uses: dev-drprasad/delete-older-releases@master
       if: github.event.inputs.DELETE_RELEASE == 'true'
       with:
+        repo: ${{ github.repository }}
         keep_latest: ${{ github.event.inputs.KEEP_MININUM_RELEASE }}
         delete_tags: true
       env:

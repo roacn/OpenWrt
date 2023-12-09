@@ -72,7 +72,7 @@ fi
 #echo NEW_KERNEL_PATCHVER="6.1" >> ${GITHUB_ENV}
 
 ##########################################添加插件###################################################
-pushd ${HOME_PATH}/package
+pushd ${HOME_PATH}/package > /dev/null
 
 #echo "添加插件 luci-app-passwall"
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall
@@ -90,15 +90,15 @@ pushd ${HOME_PATH}/package
 #echo "添加主题 new theme neobird"
 #git clone https://github.com/thinktip/luci-theme-neobird.git
 
-popd
+popd > /dev/null
 ##########################################修改插件名字###################################################
-pushd ${HOME_PATH}/feeds
+pushd ${HOME_PATH}/feeds > /dev/null
 
 # 修改feeds目录下插件名字
 #sed -i 's/"Argon 主题设置"/"Argon设置"/g' `grep "Argon 主题设置" -rl ./`
 #sed -i 's/"Turbo ACC 网络加速"/"Turbo ACC"/g' `grep "Turbo ACC 网络加速" -rl ./`
 
-popd
+popd > /dev/null
 ##########################################删除文件###################################################
 # 在线更新删除不想保留固件的某个文件，在EOF跟EOF直接加入删除代码，比如： rm /etc/config/luci，rm /etc/opkg/distfeeds.conf
 #cat >> ${FILES_TO_DELETE} <<-EOF
