@@ -132,7 +132,7 @@ jobs:
       if: steps.compile.outcome == 'success' && env.UPLOAD_FIRMWARE == 'true'
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ env.SOURCE }}-${{ env.LUCI_EDITION }}-${{ env.KERNEL_PATCHVER }}-${{ env.TARGET_PROFILE }}-firmware-${{ env.COMPILE_DATE_HM }}
+        name: ${{ env.SOURCE }}-${{ env.LUCI_EDITION }}-${{ env.LINUX_KERNEL }}-${{ env.TARGET_PROFILE }}-firmware-${{ env.COMPILE_DATE_HM }}
         path: ${{ env.FIRMWARE_PATH }}
         
     - name: 发布固件

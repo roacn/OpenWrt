@@ -30,15 +30,6 @@ on:
           - 'x86_64'
           - 'x86_32'
           - '.config'
-      FIRMWARE_TYPE:
-        description: '固件类型'
-        required: false
-        default: 'default'
-        type: choice
-        options:
-          - 'default'
-          - 'lxc'
-          - 'kvm'
       BIOS_MODE:
         description: '固件引导模式'
         required: false
@@ -58,15 +49,6 @@ on:
           - 'default'
           - 'fast'
           - 'normal'
-          - 'false'
-      UPLOAD_CONFIG:
-        description: '上传.config到 Github Artifacts'
-        required: false
-        default: 'default'
-        type: choice
-        options:
-          - 'default'
-          - 'true'
           - 'false'
       UPLOAD_FIRMWARE:
         description: '上传固件到 Github Artifacts'
@@ -134,10 +116,8 @@ jobs:
         cd $GITHUB_WORKSPACE
         INPUTS_SOURCE_BRANCH="${{ github.event.inputs.SOURCE_BRANCH }}"
         INPUTS_CONFIG_FILE="${{ github.event.inputs.CONFIG_FILE }}"
-        INPUTS_FIRMWARE_TYPE="${{ github.event.inputs.FIRMWARE_TYPE }}"
         INPUTS_BIOS_MODE="${{ github.event.inputs.BIOS_MODE }}"        
         INPUTS_ENABLE_CCACHE="${{ github.event.inputs.ENABLE_CCACHE }}"
-        INPUTS_UPLOAD_CONFIG="${{ github.event.inputs.UPLOAD_CONFIG }}"
         INPUTS_UPLOAD_FIRMWARE="${{ github.event.inputs.UPLOAD_FIRMWARE }}"
         INPUTS_UPLOAD_RELEASE="${{ github.event.inputs.UPLOAD_RELEASE }}"
         INPUTS_ENABLE_SSH="${{ github.event.inputs.ENABLE_SSH }}"
