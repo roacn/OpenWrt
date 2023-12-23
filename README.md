@@ -2,7 +2,6 @@
 [![openwrt](https://img.shields.io/badge/source-openwrt-tomato.svg?style=flat&logo=appveyor)](https://github.com/openwrt/openwrt)
 [![lienol](https://img.shields.io/badge/source-Lienol-yellow.svg?style=flat&logo=appveyor)](https://github.com/Lienol/openwrt)
 [![Mortal](https://img.shields.io/badge/source-Mortal-green.svg?style=flat&logo=appveyor)](https://github.com/immortalwrt/immortalwrt)
-[![apps](https://img.shields.io/badge/actions-roa-red.svg?style=flat&logo=appveyor)](https://github.com/roacn/build-actions)
 [![apps](https://img.shields.io/badge/packages-roa-orange.svg?style=flat&logo=appveyor)](https://github.com/roacn/openwrt-packages) 
 
 
