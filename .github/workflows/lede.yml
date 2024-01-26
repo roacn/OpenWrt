@@ -109,7 +109,7 @@ jobs:
         
     steps:
     - name: 准备工作
-      uses: actions/checkout@v4
+      uses: actions/checkout@main
 
     - name: 获取设置
       run: |
@@ -164,7 +164,7 @@ jobs:
 
     - name: 上传.config配置文件至artifacts
       if: steps.makedeconfig.outcome == 'success' && env.UPLOAD_CONFIG == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@main
       with:
         name: .config_${{ env.SOURCE }}_${{ env.TARGET_PROFILE }}_${{ env.COMPILE_DATE_HM }}
         path: ${{ env.DIFFCONFIG_TXT }}
@@ -197,7 +197,7 @@ jobs:
     steps:        
     - name: 清理Actions空间
       if: env.REPO_TOKEN
-      uses: Mattraks/delete-workflow-runs@v2
+      uses: Mattraks/delete-workflow-runs@main
       with:
           token: ${{ secrets.REPO_TOKEN }}
           repository: ${{ github.repository }}
