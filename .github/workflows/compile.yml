@@ -39,7 +39,7 @@ jobs:
         
     steps:
     - name: 准备工作
-      uses: actions/checkout@v4
+      uses: actions/checkout@main
       with:
         fetch-depth: 0
 
@@ -130,7 +130,7 @@ jobs:
     - name: 上传固件至artifacts
       continue-on-error: true
       if: steps.compile.outcome == 'success' && env.UPLOAD_FIRMWARE == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@main
       with:
         name: ${{ env.SOURCE }}-${{ env.LUCI_EDITION }}-${{ env.LINUX_KERNEL }}-${{ env.TARGET_PROFILE }}-firmware-${{ env.COMPILE_DATE_HM }}
         path: ${{ env.FIRMWARE_PATH }}
@@ -192,7 +192,7 @@ jobs:
     steps:        
     - name: 清理Actions
       if: env.REPO_TOKEN
-      uses: Mattraks/delete-workflow-runs@v2
+      uses: Mattraks/delete-workflow-runs@main
       with:
           token: ${{ secrets.REPO_TOKEN }}
           repository: ${{ github.repository }}
