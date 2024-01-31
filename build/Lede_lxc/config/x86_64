@@ -7,6 +7,7 @@ CONFIG_NODEJS_14=y
 # CONFIG_NODEJS_16 is not set
 CONFIG_NODEJS_ICU_NONE=y
 CONFIG_PACKAGE_UnblockNeteaseMusic=y
+CONFIG_PACKAGE_UnblockNeteaseMusic-Go=y
 CONFIG_PACKAGE_aliyundrive-webdav=y
 # CONFIG_PACKAGE_autosamba is not set
 CONFIG_PACKAGE_bash=y
@@ -28,7 +29,6 @@ CONFIG_PACKAGE_i2c-tools=y
 CONFIG_PACKAGE_ipt2socks=y
 CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
 CONFIG_PACKAGE_iptables-mod-iprange=y
-# CONFIG_PACKAGE_iptables-mod-ipsec is not set
 CONFIG_PACKAGE_iptables-mod-socket=y
 CONFIG_PACKAGE_iputils-arping=y
 CONFIG_PACKAGE_jansson=y
@@ -36,27 +36,18 @@ CONFIG_PACKAGE_jq=y
 CONFIG_PACKAGE_kcptun-client=y
 CONFIG_PACKAGE_kcptun-config=y
 CONFIG_PACKAGE_kmod-ata-core=y
-# CONFIG_PACKAGE_kmod-crypto-cbc is not set
-# CONFIG_PACKAGE_kmod-crypto-deflate is not set
-# CONFIG_PACKAGE_kmod-crypto-des is not set
-# CONFIG_PACKAGE_kmod-crypto-echainiv is not set
-# CONFIG_PACKAGE_kmod-crypto-hmac is not set
-# CONFIG_PACKAGE_kmod-crypto-kpp is not set
-# CONFIG_PACKAGE_kmod-crypto-md5 is not set
 CONFIG_PACKAGE_kmod-fs-btrfs=y
 CONFIG_PACKAGE_kmod-gpio-amd-fch=y
 CONFIG_PACKAGE_kmod-hwmon-drivetemp=y
 CONFIG_PACKAGE_kmod-i2c-gpio=y
 CONFIG_PACKAGE_kmod-i2c-smbus=y
 CONFIG_PACKAGE_kmod-inet-diag=y
-# CONFIG_PACKAGE_kmod-ipsec is not set
 CONFIG_PACKAGE_kmod-ipt-conntrack-extra=y
 CONFIG_PACKAGE_kmod-ipt-iprange=y
-# CONFIG_PACKAGE_kmod-ipt-ipsec is not set
 CONFIG_PACKAGE_kmod-ipt-socket=y
-# CONFIG_PACKAGE_kmod-iptunnel6 is not set
 CONFIG_PACKAGE_kmod-lib-raid6=y
 CONFIG_PACKAGE_kmod-lib-xor=y
+CONFIG_PACKAGE_kmod-lib-zlib-deflate=y
 CONFIG_PACKAGE_kmod-lib-zstd=y
 CONFIG_PACKAGE_kmod-netlink-diag=y
 # CONFIG_PACKAGE_kmod-nf-conntrack-netlink is not set
@@ -70,18 +61,22 @@ CONFIG_PACKAGE_kmod-nft-tproxy=y
 # CONFIG_PACKAGE_kmod-shortcut-fe is not set
 # CONFIG_PACKAGE_kmod-shortcut-fe-cm is not set
 # CONFIG_PACKAGE_kmod-tcp-bbr is not set
-# CONFIG_PACKAGE_kmod-wireguard is not set
+# CONFIG_PACKAGE_libcap is not set
 CONFIG_PACKAGE_libevent2=y
 CONFIG_PACKAGE_libgpiod=y
 CONFIG_PACKAGE_libi2c=y
 CONFIG_PACKAGE_libltdl=y
 CONFIG_PACKAGE_liblua5.3=y
 CONFIG_PACKAGE_liblzo=y
+CONFIG_PACKAGE_libminiupnpc=y
+CONFIG_PACKAGE_libnatpmp=y
 CONFIG_PACKAGE_libnetsnmp=y
 CONFIG_PACKAGE_libnftnl=y
+CONFIG_PACKAGE_libstdcpp=y
 CONFIG_PACKAGE_libugpio=y
 # CONFIG_PACKAGE_libustream-openssl is not set
 CONFIG_PACKAGE_libustream-wolfssl=y
+CONFIG_PACKAGE_libuv=y
 CONFIG_PACKAGE_libwolfssl=y
 CONFIG_PACKAGE_lm-sensors-detect=y
 CONFIG_PACKAGE_lsblk=y
@@ -92,7 +87,6 @@ CONFIG_PACKAGE_luci-app-argon-config=y
 # CONFIG_PACKAGE_luci-app-arpbind is not set
 # CONFIG_PACKAGE_luci-app-autoreboot is not set
 # CONFIG_PACKAGE_luci-app-ddns is not set
-# CONFIG_PACKAGE_luci-app-ipsec-vpnd is not set
 CONFIG_PACKAGE_luci-app-mosdns=y
 # CONFIG_PACKAGE_luci-app-nlbwmon is not set
 CONFIG_PACKAGE_luci-app-passwall=y
@@ -128,18 +122,14 @@ CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
 # CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_BBR_CCA is not set
 # CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_PDNSD is not set
 # CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_SHORTCUT_FE_CM is not set
-# CONFIG_PACKAGE_luci-app-unblockmusic is not set
 # CONFIG_PACKAGE_luci-app-unblockmusic_INCLUDE_UnblockNeteaseMusic_Go is not set
 CONFIG_PACKAGE_luci-app-unblockneteasemusic=y
 # CONFIG_PACKAGE_luci-app-upnp is not set
 # CONFIG_PACKAGE_luci-app-vlmcsd is not set
 # CONFIG_PACKAGE_luci-app-vsftpd is not set
 CONFIG_PACKAGE_luci-app-webadmin=y
-# CONFIG_PACKAGE_luci-app-wireguard is not set
 # CONFIG_PACKAGE_luci-app-wol is not set
 CONFIG_PACKAGE_luci-app-wolplus=y
-# CONFIG_PACKAGE_luci-app-xlnetacc is not set
-# CONFIG_PACKAGE_luci-app-zerotier is not set
 CONFIG_PACKAGE_luci-i18n-aliyundrive-webdav-zh-cn=y
 CONFIG_PACKAGE_luci-i18n-argon-config-zh-cn=y
 CONFIG_PACKAGE_luci-i18n-mosdns-zh-cn=y
@@ -147,7 +137,6 @@ CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y
 CONFIG_PACKAGE_luci-i18n-smartdns-zh-cn=y
 CONFIG_PACKAGE_luci-i18n-webadmin-zh-cn=y
 CONFIG_PACKAGE_luci-i18n-wolplus-zh-cn=y
-# CONFIG_PACKAGE_luci-proto-wireguard is not set
 CONFIG_PACKAGE_luci-theme-argon=y
 # CONFIG_PACKAGE_miniupnpd is not set
 CONFIG_PACKAGE_naiveproxy=y
@@ -192,7 +181,6 @@ CONFIG_PACKAGE_shadowsocks-libev-ss-redir=y
 CONFIG_PACKAGE_sing-box=y
 CONFIG_PACKAGE_smartdns=y
 CONFIG_PACKAGE_snmpd=y
-# CONFIG_PACKAGE_strongswan is not set
 CONFIG_PACKAGE_trojan=y
 CONFIG_PACKAGE_trojan-go=y
 CONFIG_PACKAGE_trojan-plus=y
@@ -206,11 +194,9 @@ CONFIG_PACKAGE_v2ray-plugin=y
 CONFIG_PACKAGE_vim-fuller=y
 # CONFIG_PACKAGE_vlmcsd is not set
 # CONFIG_PACKAGE_vsftpd-alt is not set
-# CONFIG_PACKAGE_wireguard-tools is not set
 # CONFIG_PACKAGE_wol is not set
 # CONFIG_PACKAGE_wsdd2 is not set
 CONFIG_PACKAGE_xray-plugin=y
-# CONFIG_PACKAGE_zerotier is not set
 CONFIG_PERL_NOCOMMENT=y
 CONFIG_PERL_THREADS=y
 CONFIG_SING_BOX_WITH_CLASH_API=y
@@ -238,7 +224,6 @@ CONFIG_GNUTLS_PSK=y
 # CONFIG_GNUTLS_SRP is not set
 # CONFIG_GNUTLS_TPM is not set
 # CONFIG_LIBNETTLE_MINI is not set
-CONFIG_PACKAGE_UnblockNeteaseMusic-Go=y
 CONFIG_PACKAGE_attr=y
 CONFIG_PACKAGE_avahi-dbus-daemon=y
 CONFIG_PACKAGE_dbus=y
@@ -249,8 +234,6 @@ CONFIG_PACKAGE_libdbus=y
 CONFIG_PACKAGE_libexpat=y
 CONFIG_PACKAGE_libgmp=y
 CONFIG_PACKAGE_libgnutls=y
-CONFIG_PACKAGE_libminiupnpc=y
-CONFIG_PACKAGE_libnatpmp=y
 CONFIG_PACKAGE_libnettle=y
 CONFIG_PACKAGE_libpopt=y
 CONFIG_PACKAGE_libtasn1=y
