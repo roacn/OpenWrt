@@ -1,6 +1,7 @@
 luci-app-advanced
 luci-app-aliyundrive-webdav
 luci-app-argon-config
+luci-app-diskman
 luci-app-filetransfer
 luci-app-firewall
 luci-app-mosdns
@@ -9,6 +10,7 @@ luci-app-pushbot
 luci-app-rebootschedule
 luci-app-smartdns
 luci-app-ssr-plus
+luci-app-ttyd
 luci-app-unblockneteasemusic
 luci-app-webadmin
 luci-app-wolplus
