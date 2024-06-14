@@ -73,6 +73,7 @@ fi
 
 ##########################################添加插件###################################################
 pushd ${HOME_PATH}/package > /dev/null
+# 以下为示例
 
 #echo "添加插件 luci-app-passwall"
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall
@@ -93,6 +94,7 @@ pushd ${HOME_PATH}/package > /dev/null
 popd > /dev/null
 ##########################################修改插件名字###################################################
 pushd ${HOME_PATH}/feeds > /dev/null
+# 以下为示例
 
 # 修改feeds目录下插件名字
 #sed -i 's/"Argon 主题设置"/"Argon设置"/g' `grep "Argon 主题设置" -rl ./`

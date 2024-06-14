@@ -47,8 +47,7 @@ on:
         type: choice
         options:
           - 'default'
-          - 'fast'
-          - 'normal'
+          - 'true'
           - 'false'
       UPLOAD_FIRMWARE:
         description: '上传固件到 Github Artifacts'

@@ -15,7 +15,7 @@
 
 
 
-### 编译
+### 固件编译
 
 ---
 
@@ -30,17 +30,21 @@
 
 
 
-
-
 - [开启缓存加速](https://github.com/roacn/common/blob/main/doc/ccache.md)
 
 
+
+- [基本uci命令](https://github.com/roacn/common/blob/main/doc/pct.md)
+
+
+
+- [基本lxc操作命令](https://github.com/roacn/common/blob/main/doc/pct.md)
 
 <br />
 
 
 
-### 固件更新
+### 固件安装、更新
 
 ---
 
@@ -64,9 +68,13 @@
 
 ---
 
-OpenWrt用作lxc容器部署时，会有部分兼容性问题，做了以下补丁，目前完美运行。
 
 
+
+
+
+
+OpenWrt用作lxc容器部署时，会有部分兼容性问题，做了以下补丁。
 
 lxc版本OpenWrt部分补丁：
 
