@@ -34,7 +34,7 @@
 
 
 
-- [基本uci命令](https://github.com/roacn/common/blob/main/doc/pct.md)
+- [基本uci命令](https://github.com/roacn/common/blob/main/doc/UCI.md)
 
 
 
