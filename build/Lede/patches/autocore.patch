@@ -1,10 +1,19 @@
 --- a/package/lean/autocore/files/x86/autocore
 +++ b/package/lean/autocore/files/x86/autocore
+@@ -8,7 +8,7 @@ start()
+ 	rfc=4096
+ 	cc=$(grep -c processor /proc/cpuinfo)
+ 	rsfe=$(echo $cc*$rfc | bc)
+-	sysctl -w net.core.rps_sock_flow_entries=$rsfe >/dev/null
++	#sysctl -w net.core.rps_sock_flow_entries=$rsfe >/dev/null
+ 	for fileRps in $(ls /sys/class/net/eth*/queues/rx-*/rps_cpus)
+ 	do
+ 		echo $cc > $fileRps
 @@ -28,7 +28,7 @@ start()
  	d=$(echo -n 'C')
  	e=$(cat /proc/cpuinfo | grep 'processor' | wc -l)
  	f=$(echo -n 'T ')
--	g=$(dmesg | grep 'DMI:' | awk -F ',' '{print $1 }' | awk -F ':' '{print $2 }')
+-	g=$(dmesg | grep 'DMI:' | awk -F ',' '{print $1 }' | awk -F ':' '{print $2 }' | head -n 1)
 +	g=${a}${b}${c}${d}${e}${f}
  	
  	if [ -d /sys/devices/cpu_atom/ ]; then

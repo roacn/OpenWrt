@@ -12,8 +12,8 @@ on:
     inputs:
       # 下拉列表设置为default，则相应选项使用settings.ini内设置
       # 需要更改，直接在下拉列表选择
-      SOURCE_BRANCH:
-        description: 'Openwrt分支;default使用settings.ini设置'
+      LUCI_EDITION:
+        description: 'Luci版本;default使用settings.ini设置'
         required: false
         default: 'default'
         type: choice
@@ -21,10 +21,12 @@ on:
           - 'default'
           - 'main'
           - 'master'
-          - 'openwrt-23.05'
-          - 'openwrt-22.03'
-          - 'openwrt-21.02'
-          - 'openwrt-19.07'
+          - '24.10'
+          - '23.05'
+          - '22.03'
+          - '21.02'
+          - '19.07'
+          - '18.06'
       CONFIG_FILE:
         description: '配置文件'
         required: false
@@ -118,7 +120,7 @@ jobs:
     - name: 获取设置
       run: |
         cd $GITHUB_WORKSPACE
-        INPUTS_SOURCE_BRANCH="${{ github.event.inputs.SOURCE_BRANCH }}"
+        INPUTS_LUCI_EDITION="${{ github.event.inputs.LUCI_EDITION }}"
         INPUTS_CONFIG_FILE="${{ github.event.inputs.CONFIG_FILE }}"
         INPUTS_BIOS_MODE="${{ github.event.inputs.BIOS_MODE }}"        
         INPUTS_ENABLE_CCACHE="${{ github.event.inputs.ENABLE_CCACHE }}"
