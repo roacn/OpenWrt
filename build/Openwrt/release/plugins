@@ -4,7 +4,7 @@ luci-app-argon-config
 luci-app-autoupdate
 luci-app-firewall
 luci-app-mosdns
-luci-app-opkg
+luci-app-package-manager
 luci-app-passwall
 luci-app-pushbot
 luci-app-rebootschedule
