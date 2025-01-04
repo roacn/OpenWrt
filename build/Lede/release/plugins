@@ -5,6 +5,7 @@ luci-app-autoupdate
 luci-app-filetransfer
 luci-app-firewall
 luci-app-mosdns
+luci-app-opkg
 luci-app-passwall
 luci-app-rebootschedule
 luci-app-shortcutmenu
