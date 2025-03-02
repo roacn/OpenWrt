@@ -67,10 +67,3 @@ jobs:
         tag: ${{ github.event.inputs.RELEASE_TAG }}
         overwrite: true
         
-    - name: Clean Actions
-      uses: Mattraks/delete-workflow-runs@main
-      with:
-          token: ${{ secrets.REPO_TOKEN }}
-          repository: ${{ github.repository }}
-          keep_minimum_runs: 7
-          retain_days: 7
